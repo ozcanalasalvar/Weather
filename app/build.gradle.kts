@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.ozcan.alasalvar.weather"
-        minSdk = 21
-        targetSdk = 33
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -61,36 +61,43 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.compose.ui:ui:1.3.2")
-    implementation("androidx.compose.material:material:1.4.0-alpha03")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    //implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.11"
-    implementation("androidx.activity:activity-compose:1.6.1")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.compose.lifecycle.viewmodel)
+    implementation(libs.androidx.activity.compose)
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.2")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.3.2")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.2")
-    implementation("androidx.compose.ui:ui-util:1.3.2")
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation(libs.androidx.compose.ui.util)
 
     //ViewPager
-    implementation("com.google.accompanist:accompanist-pager:0.23.1")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+    implementation(libs.com.google.accompanist.pager)
+    implementation(libs.com.google.accompanist.pager.indicators)
 
     //Glide
-    implementation("com.github.bumptech.glide:compose:1.0.0-alpha.1")
+    implementation(libs.glide.compose)
     //constraintlayout
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation(libs.androidx.constraintlayout.compose)
 
-    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation(libs.androidx.navigation.compose)
 
     // Dagger & Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    kapt("com.google.dagger:hilt-android-compiler:2.42")
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    kapt(libs.hilt.android.compiler)
+
+
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 }
 
 kapt {
