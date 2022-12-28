@@ -23,7 +23,7 @@ targetSdk = "33"
 # @keep dependencies of the included build-logic versions
 gradle = "7.2.2"
 kotlin = "1.7.20"
-hiltAndroidGradlePlugin = "2.44"
+hiltAndroidGradlePlugin = "2.42"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
