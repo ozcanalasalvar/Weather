@@ -1,5 +1,6 @@
 enableFeaturePreview("VERSION_CATALOGS")
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         gradlePluginPortal()
         google()

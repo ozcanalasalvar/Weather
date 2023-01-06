@@ -1,17 +1,12 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    id("weather.android.application")
+    id("weather.android.hilt")
 }
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.ozcan.alasalvar.weather"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -37,13 +32,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
     }
@@ -61,17 +50,17 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.compose.ui)
+    //implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.compose.ui.core)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.compose.lifecycle.viewmodel)
     implementation(libs.androidx.activity.compose)
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
@@ -89,9 +78,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // Dagger & Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation.compose)
-    kapt(libs.hilt.android.compiler)
+//    implementation(libs.hilt.android)
+//    implementation(libs.hilt.navigation.compose)
+//    kapt(libs.hilt.android.compiler)
 
 
 

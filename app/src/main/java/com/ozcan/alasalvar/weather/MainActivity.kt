@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.ozcan.alasalvar.weather.ui.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,6 +19,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherTheme {
                 // A surface container using the 'background' color from the theme
+                ConstraintLayout() {
+                    
+                }
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
