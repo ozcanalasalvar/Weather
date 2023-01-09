@@ -11,11 +11,9 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
            // pluginManager.apply("com.android.library")
-
             extensions.configure<ApplicationExtension>{
                 configureAndroidCompose(this)
             }
-           // val extension = extensions.getByType<LibraryExtension>()
 
         }
     }
