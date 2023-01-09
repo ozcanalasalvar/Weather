@@ -8,8 +8,8 @@ java {
 }
 
 dependencies {
-    implementation(libs.android.gradlePlugin)
-    implementation(libs.kotlin.gradlePlugin)
+    compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.kotlin.gradlePlugin)
 }
 
 gradlePlugin {
@@ -33,6 +33,11 @@ gradlePlugin {
         register("androidLibrary") {
             id = "weather.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
+        }
+
+        register("androidCompose") {
+            id = "weather.android.application.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
     }
 }

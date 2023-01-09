@@ -1,6 +1,7 @@
 plugins {
     id("weather.android.application")
     id("weather.android.hilt")
+    id("weather.android.application.compose")
 }
 
 android {
@@ -33,13 +34,13 @@ android {
         }
     }
 
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
-    }
+//    buildFeatures {
+//        compose = true
+//    }
+//
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+//    }
 
     packagingOptions {
         resources {
