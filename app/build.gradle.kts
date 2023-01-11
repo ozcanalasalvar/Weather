@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core:network"))
     //implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.compose.ui.core)
     implementation(libs.androidx.compose.material)

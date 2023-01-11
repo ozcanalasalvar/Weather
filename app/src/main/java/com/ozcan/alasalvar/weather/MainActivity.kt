@@ -14,6 +14,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.ozcan.alasalvar.weather.ui.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

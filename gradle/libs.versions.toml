@@ -3,6 +3,8 @@ coreKtx = "1.9.0"
 room = "2.4.3"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "0.8.0"
+kotlinxSerializationJson = "1.4.1"
+kotlinxCoroutines = "1.6.4"
 okHttpLogging = "4.9.3"
 moshi = "2.6.2"
 junit4 = "4.13.2"
@@ -63,6 +65,9 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpLogging" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationJson" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 #test
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
