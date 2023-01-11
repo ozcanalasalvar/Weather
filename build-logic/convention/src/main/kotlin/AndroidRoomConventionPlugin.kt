@@ -9,7 +9,7 @@ class AndroidRoomConventionPlugin: Plugin<Project> {
     override fun apply(target: org.gradle.api.Project) {
         with(target) {
             with(pluginManager) {
-                apply("org.jetbrains.kotlin.kapt")
+                apply("kotlin-kapt")
             }
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
