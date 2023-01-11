@@ -1,7 +1,8 @@
 plugins {
     id("weather.android.application")
-    id("weather.android.hilt")
     id("weather.android.application.compose")
+    id("weather.android.room")
+    id("weather.android.hilt")
 }
 
 android {
@@ -34,13 +35,6 @@ android {
         }
     }
 
-//    buildFeatures {
-//        compose = true
-//    }
-//
-//    composeOptions {
-//        kotlinCompilerExtensionVersion = libs.versions.compose.get()
-//    }
 
     packagingOptions {
         resources {
@@ -85,9 +79,9 @@ dependencies {
 
 
 
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
+//    implementation(libs.room.runtime)
+//    implementation(libs.room.ktx)
+//    kapt(libs.room.compiler)
 }
 
 kapt {
