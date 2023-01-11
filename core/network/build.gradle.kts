@@ -23,5 +23,5 @@ dependencies {
 }
 
 fun getApiKey(): String? {
-    return gradleLocalProperties(rootDir).get("API_KEY") as String?
+    return gradleLocalProperties(rootDir)["API_KEY"] as String?
 }
