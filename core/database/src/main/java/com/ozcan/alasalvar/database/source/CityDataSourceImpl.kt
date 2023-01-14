@@ -5,8 +5,9 @@ import com.ozcan.alasalvar.common.dispatcher.Dispatcher
 import com.ozcan.alasalvar.database.CityDataSource
 import com.ozcan.alasalvar.database.CityDatabase
 import com.ozcan.alasalvar.database.fake.AssetManager
-import com.ozcan.alasalvar.database.model.CityEntity
-import com.ozcan.alasalvar.database.model.toExternalModel
+import com.ozcan.alasalvar.database.model.asEntity
+import com.ozcan.alasalvar.database.model.toEntityList
+import com.ozcan.alasalvar.database.model.asExternalModel
 import com.ozcan.alasalvar.model.data.City
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -41,26 +42,11 @@ class CityDataSourceImpl @Inject constructor(
             }
         }
 
-        return dao.getCities().map { city -> city.map { it.toExternalModel() } }
+        return dao.getCities().map { city -> city.map { it.asExternalModel() } }
     }
 
 
     override suspend fun updateStation(city: City) {
-        dao.updateStation(city.toInternalModel())
+        dao.updateStation(city.asEntity())
     }
 }
-
-fun List<City>.toEntityList(): List<CityEntity> {
-    return this.map {
-        it.toInternalModel()
-    }
-}
-
-fun City.toInternalModel(): CityEntity = CityEntity(
-    id = id,
-    country = country,
-    lat = lat,
-    lon = lon,
-    name = name,
-    isFavorite = isFavorite,
-)

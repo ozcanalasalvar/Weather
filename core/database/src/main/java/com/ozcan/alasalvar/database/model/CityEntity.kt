@@ -17,7 +17,7 @@ data class CityEntity(
     val isFavorite: Boolean = false
 )
 
-fun CityEntity.toExternalModel() = City(
+fun CityEntity.asExternalModel() = City(
     id = id,
     country = country,
     lat = lat,
