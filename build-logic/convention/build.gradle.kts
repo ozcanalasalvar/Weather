@@ -14,6 +14,12 @@ dependencies {
 
 gradlePlugin {
     plugins {
+
+        register("androidCompose") {
+            id = "weather.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+
         register("androidApplication") {
             id = "weather.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
@@ -29,14 +35,20 @@ gradlePlugin {
             implementationClass = "AndroidLibraryConventionPlugin"
         }
 
-        register("androidCompose") {
-            id = "weather.android.application.compose"
+        register("androidLibraryCompose") {
+            id = "weather.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
+
 
         register("androidHilt") {
             id = "weather.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
+        }
+
+        register("androidFeature") {
+            id = "weather.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
         }
     }
 }

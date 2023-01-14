@@ -23,9 +23,26 @@ internal fun Project.configureAndroidCompose(
         }
 
         dependencies {
-            val bom = libs.findDependency("androidx-compose-bom").get()
-            add("implementation", platform(bom))
-            add("androidTestImplementation", platform(bom))
+            "implementation"(libs.findDependency("androidx-compose-ui-core").get())
+            "implementation"(libs.findDependency("androidx-compose-material").get())
+            "implementation"(libs.findDependency("androidx-compose-ui.tooling-preview").get())
+            "implementation"(libs.findDependency("androidx-compose-lifecycle-viewmodel").get())
+            "implementation"(libs.findDependency("androidx-activity-compose").get())
+
+
+            "debugImplementation"(libs.findDependency("androidx.compose.ui.tooling").get())
+            "implementation"(libs.findDependency("androidx.compose.ui.util").get())
+
+            //ViewPager
+            "implementation"(libs.findDependency("com.google.accompanist.pager").get())
+            "implementation"(libs.findDependency("com.google.accompanist.pager.indicators").get())
+
+            //Glide
+            "implementation"(libs.findDependency("glide.compose").get())
+            //constraintlayout
+            "implementation"(libs.findDependency("androidx.constraintlayout.compose").get())
+            "implementation"(libs.findDependency("androidx.navigation.compose").get())
+
         }
 
     }

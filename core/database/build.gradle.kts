@@ -2,6 +2,7 @@ plugins {
     id("weather.android.library")
     id("weather.android.room")
     id("weather.android.hilt")
+    id("kotlinx-serialization")
 }
 
 android {
