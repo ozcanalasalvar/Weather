@@ -44,7 +44,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:network"))
+    implementation(project(":feature:search"))
+
+    implementation(project(":core:designsystem"))
+
     //implementation(libs.androidx.core.ktx)
 //    implementation(libs.androidx.compose.ui.core)
 //    implementation(libs.androidx.compose.material)

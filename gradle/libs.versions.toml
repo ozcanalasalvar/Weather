@@ -15,6 +15,7 @@ androidxComposeBom = "2022.12.00"
 compose = "1.3.2"
 composeMaterial = "1.4.0-alpha03"
 runtimeKtx = "2.3.1"
+androidxLifecycle = "2.6.0-alpha03"
 activityCompose = "1.6.1"
 accompanistPager = "0.23.1"
 glideCompose = "1.0.0-alpha.1"
@@ -50,7 +51,8 @@ com-google-accompanist-pager-indicators = { group = "com.google.accompanist", na
 glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glideCompose" }
 androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingCompose" }
-androidx-compose-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "runtimeKtx" }
+androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
+androidx-compose-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 #Hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroidGradlePlugin" }

@@ -1,5 +1,8 @@
 package com.ozcan.alasalvar.model.data
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class City(
     val id: Int,
     val country: String,

@@ -27,6 +27,7 @@ internal fun Project.configureAndroidCompose(
             "implementation"(libs.findDependency("androidx-compose-material").get())
             "implementation"(libs.findDependency("androidx-compose-ui.tooling-preview").get())
             "implementation"(libs.findDependency("androidx-compose-lifecycle-viewmodel").get())
+            "implementation"(libs.findDependency("androidx-lifecycle-runtimeCompose").get())
             "implementation"(libs.findDependency("androidx-activity-compose").get())
 
 

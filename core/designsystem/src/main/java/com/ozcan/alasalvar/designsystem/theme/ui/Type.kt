@@ -1,4 +1,4 @@
-package com.ozcan.alasalvar.weather.ui.theme
+package com.ozcan.alasalvar.designsystem.theme.ui
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
