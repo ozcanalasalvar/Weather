@@ -34,10 +34,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ozcan.alasalvar.designsystem.theme.component.AppSearchView
+import com.ozcan.alasalvar.model.data.City
 
 @Composable
 fun SearchScreen(
     onCancelClick: () -> Unit,
+    onCityClicked: (City) -> Unit,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
 
@@ -64,8 +66,9 @@ fun SearchScreen(
             itemsIndexed(uiState.results) { _, city ->
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = city.name + " , " + city.country,
-                    color = MaterialTheme.colors.secondary
+                    text = city.name + " ," + city.country,
+                    color = MaterialTheme.colors.secondary,
+                    fontSize = 18.sp
                 )
                 Spacer(modifier = Modifier.height(10.dp))
 
