@@ -36,7 +36,7 @@ fun AppSearchView(
     var query: String by rememberSaveable { mutableStateOf("") }
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(if (query.isEmpty()) 1.0f else 0.8f)
             .background(
                 color = MaterialTheme.colors.surface,
