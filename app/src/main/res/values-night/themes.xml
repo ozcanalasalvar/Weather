@@ -3,7 +3,8 @@
 
     <style name="Theme.Weather" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/status_dark</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <item name="android:navigationBarColor">@color/status_dark</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
 </resources>
