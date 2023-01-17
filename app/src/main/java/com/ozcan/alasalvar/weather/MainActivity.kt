@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.core.view.WindowCompat
 import com.ozcan.alasalvar.designsystem.theme.ui.WeatherTheme
+import com.ozcan.alasalvar.detail.DetailScreen
 import com.ozcan.alasalvar.search.SearchScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,13 +21,15 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {
             WeatherTheme {
-                SearchScreen(
-                    onCancelClick = {
+                DetailScreen()
 
-                    },
-                    onCityClicked = {
-
-                    })
+//                SearchScreen(
+//                    onCancelClick = {
+//
+//                    },
+//                    onCityClicked = {
+//
+//                    })
             }
         }
     }

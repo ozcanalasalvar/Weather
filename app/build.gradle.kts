@@ -45,6 +45,7 @@ android {
 
 dependencies {
     implementation(project(":feature:search"))
+    implementation(project(":feature:detail"))
 
     implementation(project(":core:designsystem"))
 
