@@ -18,7 +18,7 @@
       weatherTemp: {
         width:  "wrap",
         height:  "wrap",
-        top: ['weatherIcon', 'bottom', 0],
+        top: ['weatherIcon', 'bottom', -15],
         start: ['parent', 'start', 0],
         end: ['parent', 'end', 0],
         custom: {
@@ -32,7 +32,7 @@
         start: ['parent', 'start', 0],
         end: ['parent', 'end', 0],
         custom: {
-          fontSize: 30,
+          fontSize: 25,
         }
       },
       dateText: {
@@ -99,16 +99,4 @@
       },
     }
   },
-
-  Transitions: {
-    default: {
-      from: 'start',
-      to: 'end',
-      onSwipe: {
-        anchor: 'weatherIcon',
-        direction: 'up',
-        side: 'top',
-      },
-    }
-  }
 }

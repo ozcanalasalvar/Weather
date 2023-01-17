@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -130,8 +131,10 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
             Image(
                 imageVector = Icons.Rounded.Favorite,
                 contentDescription = "weather icon",
-                Modifier
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
                     .size(250.dp)
+                    .background(Color.Transparent)
                     .layoutId("weatherIcon")
             )
 
@@ -148,6 +151,7 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
                 text = "Cloudy",
                 fontSize = motionFontSize("weatherName", "fontSize"),
                 color = Color.White,
+                fontWeight = FontWeight.Normal,
                 modifier = Modifier.layoutId("weatherName")
             )
 
@@ -292,11 +296,17 @@ fun InfoItem(icon: ImageVector, name: String, value: String) {
         )
         Spacer(modifier = Modifier.height(4.dp))
 
-        Text(text = value, fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Bold)
+        Text(text = value, fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Normal)
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Text(text = name, fontSize = 13.sp, color = Color.White, modifier = Modifier.alpha(0.5f))
+        Text(
+            text = name,
+            fontSize = 13.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Normal,
+            modifier = Modifier.alpha(0.5f)
+        )
 
 
     }
@@ -307,6 +317,7 @@ fun InfoItem(icon: ImageVector, name: String, value: String) {
 @Composable
 fun WeatherItem(modifier: Modifier = Modifier) {
 
+    Spacer(modifier = Modifier.height(10.dp))
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -316,13 +327,13 @@ fun WeatherItem(modifier: Modifier = Modifier) {
     ) {
 
         Text(
-            text = "Mon",
-            fontSize = 15.sp,
+            text = "Monday, 16",
+            fontSize = 13.sp,
             color = MaterialTheme.colors.secondaryVariant,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Normal
         )
 
-        Row() {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Rounded.Favorite,
                 contentDescription = "info icon",
@@ -330,25 +341,25 @@ fun WeatherItem(modifier: Modifier = Modifier) {
             )
             Text(
                 text = "Storm",
-                fontSize = 15.sp,
+                fontSize = 13.sp,
                 color = MaterialTheme.colors.secondaryVariant,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Normal
             )
 
         }
 
 
-        Row() {
+        Row {
 
             Text(
                 text = "+25°",
-                fontSize = 15.sp,
+                fontSize = 13.sp,
                 color = MaterialTheme.colors.secondary,
                 fontWeight = FontWeight.Normal
             )
             Text(
                 text = "+19°",
-                fontSize = 15.sp,
+                fontSize = 13.sp,
                 color = MaterialTheme.colors.secondaryVariant,
                 fontWeight = FontWeight.Normal
             )
