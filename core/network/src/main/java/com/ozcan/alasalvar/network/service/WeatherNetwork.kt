@@ -2,6 +2,7 @@ package com.ozcan.alasalvar.network.service
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.ozcan.alasalvar.network.WeatherDataSource
+import com.ozcan.alasalvar.network.model.WeatherDetailDto
 import com.ozcan.alasalvar.network.model.WeatherDto
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -24,6 +25,12 @@ private interface WeatherService {
     suspend fun getWeatherData(
         @Query("q") query: String,
     ): WeatherDto
+
+    @GET("onecall?units=metric&exclude=minutely")
+    suspend fun getWeatherDetail(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+    ): WeatherDetailDto
 
 }
 
@@ -61,4 +68,7 @@ class WeatherNetwork @Inject constructor(networkJson: Json) : WeatherDataSource 
 
     override suspend fun getWeatherData(cityName: String): WeatherDto =
         service.getWeatherData(cityName)
+
+    override suspend fun getWeatherDetail(lat: Double, lon: Double): WeatherDetailDto =
+        service.getWeatherDetail(lat, lon)
 }

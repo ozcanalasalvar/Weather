@@ -1,7 +1,7 @@
 package com.ozcan.alasalvar.data.di
 
 import com.ozcan.alasalvar.data.CityRepository
-import com.ozcan.alasalvar.data.core.CityRepositoryImpl
+import com.ozcan.alasalvar.data.source.CityRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.ozcan.alasalvar.data.core
+package com.ozcan.alasalvar.data.source
 
 import com.ozcan.alasalvar.data.CityRepository
 import com.ozcan.alasalvar.database.CityDataSource

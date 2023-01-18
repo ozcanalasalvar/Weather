@@ -1,11 +1,11 @@
 package com.ozcan.alasalvar.network.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class WeatherDetailDto(
-    val description: String,
-    val icon: String,
-    val id: Int,
-    val main: String
+    val hourlyDto: HourlyDto,
+    val dailyDto: List<DailyDto>,
+    val hourly: List<HourlyDto>,
+    val lat: Double,
+    val lon: Double,
+    val timezone: String,
+    val timezone_offset: Int
 )
