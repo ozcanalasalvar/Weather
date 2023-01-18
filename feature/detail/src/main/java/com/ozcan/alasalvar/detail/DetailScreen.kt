@@ -50,7 +50,7 @@ fun DetailScreen(
     val uiState = viewModel.uiState
 
     val scrollState = rememberLazyListState()
-    if (uiState.data==null){
+    if (uiState.data == null) {
         Text(text = "boşş")
         return
     }
@@ -95,7 +95,11 @@ fun DetailScreen(
 @SuppressLint("FrequentlyChangedStateReadInComposition")
 @OptIn(ExperimentalMotionApi::class, ExperimentalGlideComposeApi::class)
 @Composable
-fun HeaderContent(weatherDetail: WeatherDetail,modifier: Modifier = Modifier, lazyScrollState: LazyListState) {
+fun HeaderContent(
+    weatherDetail: WeatherDetail,
+    modifier: Modifier = Modifier,
+    lazyScrollState: LazyListState
+) {
 
     val context = LocalContext.current
     val motionScene = remember {
@@ -146,7 +150,7 @@ fun HeaderContent(weatherDetail: WeatherDetail,modifier: Modifier = Modifier, la
                     .fillMaxWidth()
                     .layoutId("header"),
                 onBackClick = {},
-                cityName = weatherDetail.city.name
+                cityName = weatherDetail.city!!.name
             )
 
             GlideImage(
@@ -225,7 +229,7 @@ internal fun Header(
 
         Row(
             modifier = Modifier
-                .width(IntrinsicSize.Min)
+                .width(IntrinsicSize.Max)
                 .constrainAs(cityText) {
                     start.linkTo(backIcon.end)
                     end.linkTo(moreIcon.start)
@@ -245,7 +249,10 @@ internal fun Header(
                 fontSize = 25.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Normal,
-                modifier = Modifier.padding(start = 3.dp)
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(start = 3.dp),
+                maxLines = 1,
             )
         }
 

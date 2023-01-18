@@ -1,5 +1,8 @@
 package com.ozcan.alasalvar.network.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class TempDto(
     val day: Double,
     val eve: Double,

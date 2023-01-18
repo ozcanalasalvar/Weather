@@ -4,8 +4,10 @@ import com.ozcan.alasalvar.model.data.Hourly
 import com.ozcan.alasalvar.network.util.asHour
 import com.ozcan.alasalvar.network.util.asImageUrl
 import com.ozcan.alasalvar.network.util.asTemperature
+import kotlinx.serialization.Serializable
 
 
+@Serializable
 data class HourlyDto(
     val dt: Int,
     val feels_like: Double,

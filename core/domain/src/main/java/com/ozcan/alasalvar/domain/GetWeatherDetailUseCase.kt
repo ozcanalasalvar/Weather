@@ -5,6 +5,7 @@ import com.ozcan.alasalvar.common.dispatcher.Dispatcher
 import com.ozcan.alasalvar.data.CityRepository
 import com.ozcan.alasalvar.data.WeatherRepository
 import com.ozcan.alasalvar.model.data.WeatherDetail
+import com.ozcan.alasalvar.network.model.asExternalModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,9 +21,8 @@ class GetWeatherDetailUseCase @Inject constructor(
 
         val city = cityRepository.getCity(cityId)
 
-        val response = weatherRepository.getWeatherDetail(city)
-
-        emit(response)
+        val response = weatherRepository.getWeatherDetail(city.lat, city.lon)
+        emit(response.asExternalModel().copy(city = city))
 
     }.flowOn(ioDispatcher)
 }

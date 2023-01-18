@@ -5,7 +5,9 @@ import com.ozcan.alasalvar.model.data.WeatherDetail
 import com.ozcan.alasalvar.network.util.asCurrentDate
 import com.ozcan.alasalvar.network.util.asImageUrl
 import com.ozcan.alasalvar.network.util.asTemperature
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WeatherDetailDto(
     val current: HourlyDto,
     val daily: List<DailyDto>,
@@ -16,9 +18,9 @@ data class WeatherDetailDto(
     val timezone_offset: Int
 )
 
-fun WeatherDetailDto.asExternalModel(city: City): WeatherDetail {
+fun WeatherDetailDto.asExternalModel(): WeatherDetail {
     return WeatherDetail(
-        city = city,
+        city = null,
         weatherIcon = current.weather[0].icon.asImageUrl(),
         weatherStatus = current.weather[0].main,
         currentTemperature = current.temp.asTemperature(),

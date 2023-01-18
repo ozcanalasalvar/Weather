@@ -1,7 +1,7 @@
 package com.ozcan.alasalvar.model.data
 
 data class WeatherDetail(
-    val city: City,
+    val city: City?,
     val weatherIcon: String,
     val weatherStatus: String,
     val currentTemperature: String,
