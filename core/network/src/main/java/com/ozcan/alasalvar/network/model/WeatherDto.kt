@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class WeatherDto(
     val id: Int,
     val name: String,
+    val sys: SysDto,
     val coordinateDto: CoordinateDto,
     val dt: Int,
     val mainDto: MainDto,
