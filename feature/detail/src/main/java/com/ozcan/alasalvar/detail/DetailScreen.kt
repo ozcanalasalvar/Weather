@@ -33,6 +33,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.ozcan.alasalvar.designsystem.theme.ui.*
 import weather.feature.detail.R
 
@@ -57,6 +59,14 @@ fun DetailScreen() {
             state = scrollState
         ) {
 
+            item {
+                Text(
+                    text = "Days",
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colors.secondary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
             for (i in 0..100)
                 item {
@@ -72,7 +82,7 @@ fun DetailScreen() {
 
 
 @SuppressLint("FrequentlyChangedStateReadInComposition")
-@OptIn(ExperimentalMotionApi::class)
+@OptIn(ExperimentalMotionApi::class, ExperimentalGlideComposeApi::class)
 @Composable
 fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState) {
 
@@ -87,7 +97,7 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
         tween(450)
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 550.dp else 300.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
+        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 450.dp else 300.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
         tween(450)
     )
 
@@ -128,15 +138,16 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
                 cityName = "Giresun"
             )
 
-            Image(
-                imageVector = Icons.Rounded.Favorite,
-                contentDescription = "weather icon",
-                contentScale = ContentScale.Crop,
+            GlideImage(
+                model = "https://openweathermap.org/img/wn/11d@2x.png",
+                contentScale = ContentScale.FillBounds,
+                contentDescription = "weather image",
                 modifier = Modifier
                     .size(250.dp)
                     .background(Color.Transparent)
-                    .layoutId("weatherIcon")
+                    .layoutId("weatherIcon"),
             )
+
 
 
             Text(
@@ -193,6 +204,7 @@ internal fun Header(
                 .constrainAs(backIcon) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
                 }
                 .clickable {
                     onBackClick()
@@ -207,6 +219,7 @@ internal fun Header(
                     start.linkTo(backIcon.end)
                     end.linkTo(moreIcon.start)
                     top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
                 },
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -218,9 +231,9 @@ internal fun Header(
 
             Text(
                 text = cityName,
-                fontSize = 23.sp,
+                fontSize = 25.sp,
                 color = Color.White,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Normal,
                 modifier = Modifier.padding(start = 3.dp)
             )
         }
@@ -235,6 +248,7 @@ internal fun Header(
                 .constrainAs(moreIcon) {
                     end.linkTo(parent.end)
                     top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
                 }
         )
 
@@ -274,8 +288,8 @@ internal fun Info(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             InfoItem(icon = Icons.Rounded.Info, name = "Wind", value = "13 km/h")
-            InfoItem(icon = Icons.Rounded.Info, name = "Wind", value = "13 km/h")
-            InfoItem(icon = Icons.Rounded.Info, name = "Wind", value = "13 km/h")
+            InfoItem(icon = Icons.Rounded.Info, name = "Humidity", value = "24%")
+            InfoItem(icon = Icons.Rounded.Info, name = "Pressure", value = "13 Pa")
         }
 
 
