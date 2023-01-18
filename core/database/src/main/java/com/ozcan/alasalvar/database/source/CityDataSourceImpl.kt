@@ -49,4 +49,6 @@ class CityDataSourceImpl @Inject constructor(
     override suspend fun updateStation(city: City) {
         dao.updateStation(city.asEntity())
     }
+
+    override suspend fun getCity(cityId: Int): City = dao.getCity(cityId).asExternalModel()
 }

@@ -16,4 +16,6 @@ class CityRepositoryImpl @Inject constructor(private val cityDataSource: CityDat
     override suspend fun updateStation(city: City) {
         cityDataSource.updateStation(city)
     }
+
+    override suspend fun getCity(cityId: Int): City = cityDataSource.getCity(cityId)
 }

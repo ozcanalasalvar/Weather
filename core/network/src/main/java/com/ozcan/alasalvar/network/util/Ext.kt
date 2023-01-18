@@ -1,0 +1,74 @@
+package com.ozcan.alasalvar.network.util
+
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.math.roundToInt
+
+fun String.asImageUrl() = "https://openweathermap.org/img/wn/$this@2x.png"
+
+fun Double.asTemperature() = "" + this.roundToInt() + "°C"
+
+
+fun Int.asCurrentDate(): String {
+
+    val time = Date(this.toLong() * 1000)
+
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time.time
+
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    return "" + dayName(calendar.timeInMillis) + ", " + day + " " + monthName(calendar.timeInMillis)
+
+}
+
+fun Int.asDailyDate(): String {
+
+    val time = Date(this.toLong() * 1000)
+
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time.time
+
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    return "" + dayName(calendar.timeInMillis) + ", " + day
+
+}
+
+fun Int.asHour(): String {
+    val time = Date(this.toLong() * 1000)
+
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time.time
+
+    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+    val minute = calendar.get(Calendar.MINUTE)
+
+    return toFormattedTime(
+        hour,
+        minute
+    )
+}
+
+
+internal fun dayName(timeStamp: Long): String? {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = timeStamp
+    val date = calendar.timeInMillis
+    return SimpleDateFormat("EEEE", Locale.ENGLISH).format(date)
+}
+
+internal fun monthName(timeStamp: Long): String? {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = timeStamp
+    val date = calendar.timeInMillis
+    return SimpleDateFormat("MMM", Locale.ENGLISH).format(date)
+}
+
+internal fun toFormattedTime(hour: Int, minute: Int): String {
+    var welFormat = ""
+    welFormat += if (hour < 10) "0$hour" else "" + hour
+    welFormat += ":"
+    welFormat += if (minute < 10) "0$minute" else "" + minute
+    return welFormat
+}

@@ -1,5 +1,8 @@
 package com.ozcan.alasalvar.network.di
 
+import com.ozcan.alasalvar.network.WeatherDataSource
+import com.ozcan.alasalvar.network.service.WeatherNetwork
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,4 +19,15 @@ class NetworkModule {
     fun providesNetworkJson(): Json = Json {
         ignoreUnknownKeys = true
     }
+}
+
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface DataSourceModule {
+
+    @Binds
+    @Singleton
+    fun bindRepository(dataSource: WeatherNetwork): WeatherDataSource
+
 }

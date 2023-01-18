@@ -9,4 +9,6 @@ interface CityRepository {
 
     suspend fun updateStation(city: City)
 
+    suspend fun getCity(cityId: Int): City
+
 }

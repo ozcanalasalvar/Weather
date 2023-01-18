@@ -16,7 +16,7 @@ data class WeatherDetailDto(
     val timezone_offset: Int
 )
 
-fun WeatherDetailDto.toExternalModel(city: City): WeatherDetail {
+fun WeatherDetailDto.asExternalModel(city: City): WeatherDetail {
     return WeatherDetail(
         city = city,
         weatherIcon = current.weather[0].icon.asImageUrl(),

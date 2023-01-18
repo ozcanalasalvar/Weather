@@ -8,4 +8,6 @@ interface CityDataSource {
     fun getCities(): Flow<List<City>>
 
     suspend fun updateStation(city: City)
+
+    suspend fun getCity(cityId: Int): City
 }

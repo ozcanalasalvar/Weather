@@ -16,9 +16,9 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindRepository(repository: CityRepositoryImpl): CityRepository
+    fun bindCityRepository(cityRepository: CityRepositoryImpl): CityRepository
 
     @Binds
     @Singleton
-    fun bindRepository(repository: WeatherRepositoryImpl): WeatherRepository
+    fun bindWeatherRepository(weatherRepository: WeatherRepositoryImpl): WeatherRepository
 }

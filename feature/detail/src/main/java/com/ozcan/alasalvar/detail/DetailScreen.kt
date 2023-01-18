@@ -33,22 +33,33 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.ozcan.alasalvar.designsystem.theme.ui.*
+import com.ozcan.alasalvar.model.data.City
+import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+    viewModel: DetailViewModel = hiltViewModel()
+) {
+
+    val uiState = viewModel.uiState
 
     val scrollState = rememberLazyListState()
+    if (uiState.data==null){
+        Text(text = "boşş")
+        return
+    }
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         topBar = {
-            HeaderContent(lazyScrollState = scrollState)
+            HeaderContent(weatherDetail = uiState.data, lazyScrollState = scrollState)
         }
     ) {
 
@@ -84,7 +95,7 @@ fun DetailScreen() {
 @SuppressLint("FrequentlyChangedStateReadInComposition")
 @OptIn(ExperimentalMotionApi::class, ExperimentalGlideComposeApi::class)
 @Composable
-fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState) {
+fun HeaderContent(weatherDetail: WeatherDetail,modifier: Modifier = Modifier, lazyScrollState: LazyListState) {
 
     val context = LocalContext.current
     val motionScene = remember {
@@ -135,11 +146,11 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
                     .fillMaxWidth()
                     .layoutId("header"),
                 onBackClick = {},
-                cityName = "Giresun"
+                cityName = weatherDetail.city.name
             )
 
             GlideImage(
-                model = "https://openweathermap.org/img/wn/11d@2x.png",
+                model = weatherDetail.weatherIcon,
                 contentScale = ContentScale.FillBounds,
                 contentDescription = "weather image",
                 modifier = Modifier
@@ -151,7 +162,7 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
 
 
             Text(
-                text = "28°",
+                text = weatherDetail.currentTemperature,
                 fontSize = motionFontSize("weatherTemp", "fontSize"),
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
@@ -159,7 +170,7 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
             )
 
             Text(
-                text = "Cloudy",
+                text = weatherDetail.weatherStatus,
                 fontSize = motionFontSize("weatherName", "fontSize"),
                 color = Color.White,
                 fontWeight = FontWeight.Normal,
@@ -168,7 +179,7 @@ fun HeaderContent(modifier: Modifier = Modifier, lazyScrollState: LazyListState)
 
 
             Text(
-                text = "Monday, 17 May",
+                text = weatherDetail.todayDate,
                 fontSize = 13.sp,
                 color = Color.White,
                 modifier = Modifier

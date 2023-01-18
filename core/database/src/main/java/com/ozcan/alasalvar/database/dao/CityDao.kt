@@ -18,4 +18,7 @@ interface CityDao {
 
     @Update
     suspend fun updateStation(city: CityEntity)
+
+    @Query("SELECT * FROM cities WHERE id IS :cityId")
+    suspend fun getCity(cityId: Int): CityEntity
 }
