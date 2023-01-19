@@ -42,10 +42,18 @@
         start: ['parent', 'start', 0],
         end: ['parent', 'end', 0]
       },
+      hourlyList: {
+        width:  "spread",
+        height:  "wrap",
+        alpha : 1,
+        top: ['dateText', 'bottom', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
       info: {
         width:  "spread",
         height:  "wrap",
-        top: ['dateText', 'bottom', 0],
+        top: ['hourlyList', 'bottom', 0],
         start: ['parent', 'start', 0],
         end: ['parent', 'end', 0]
       },
@@ -89,6 +97,13 @@
         height:  "wrap",
         top: ['weatherTemp', 'bottom', 0],
         start: ['weatherIcon', 'end', 0],
+      },
+      hourlyList: {
+        width:  "spread",
+        height:  "wrap",
+        alpha : 0,
+        top: ['weatherIcon', 'bottom', 0],
+        end: ['parent', 'start', 30],
       },
       info: {
         width:  "spread",

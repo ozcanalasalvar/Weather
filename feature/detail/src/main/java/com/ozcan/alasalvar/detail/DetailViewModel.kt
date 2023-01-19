@@ -30,7 +30,7 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun getDetail() = viewModelScope.launch {
-        detailUseCase.invoke(2852362).collectLatest {
+        detailUseCase.invoke(6359304).collectLatest {
             uiState = uiState.copy(data = it)
         }
     }

@@ -6,15 +6,11 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.runtime.*
@@ -23,12 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -39,8 +33,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.ozcan.alasalvar.designsystem.theme.ui.*
+import com.ozcan.alasalvar.detail.component.DailyWeatherItem
+import com.ozcan.alasalvar.detail.component.HourlyWeatherItem
+import com.ozcan.alasalvar.detail.component.Info
 import com.ozcan.alasalvar.model.data.City
-import com.ozcan.alasalvar.model.data.Daily
+import com.ozcan.alasalvar.model.data.Hourly
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
 
@@ -73,21 +70,12 @@ fun DetailScreen(
             state = scrollState
         ) {
 
-            item {
-                Text(
-                    text = "Days",
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colors.secondary,
-                    fontWeight = FontWeight.Bold
-                )
+            itemsIndexed(uiState.data.dailyWeather) { _, daily ->
+                DailyWeatherItem(daily)
             }
 
             itemsIndexed(uiState.data.dailyWeather) { _, daily ->
-                WeatherItem(daily)
-            }
-
-            itemsIndexed(uiState.data.dailyWeather) { _, daily ->
-                WeatherItem(daily)
+                DailyWeatherItem(daily)
             }
 
         }
@@ -114,11 +102,11 @@ fun HeaderContent(
 
     val progress by animateFloatAsState(
         targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 0f else 1f,//if (lazyScrollState.firstVisibleItemIndex in 0..4) 0f else 1f
-        tween(450)
+        tween(500)
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 450.dp else 300.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
-        tween(450)
+        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 570.dp else 300.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
+        tween(500)
     )
 
 
@@ -154,8 +142,9 @@ fun HeaderContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .layoutId("header"),
+                city = weatherDetail.city!!,
                 onBackClick = {},
-                cityName = weatherDetail.city!!.name
+                onAddFavoriteClick = {}
             )
 
             GlideImage(
@@ -196,8 +185,20 @@ fun HeaderContent(
                     .alpha(0.5f)
             )
 
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .layoutId("hourlyList")
+            ) {
+                itemsIndexed(weatherDetail.hourlyWeather) { _, hourly ->
+                    HourlyWeatherItem(hourly = hourly, modifier = Modifier.padding(top = 30.dp))
+
+                }
+            }
+
 
             Info(
+                weatherDetail = weatherDetail,
                 modifier = Modifier
                     .layoutId("info")
                     .fillMaxWidth()
@@ -206,38 +207,58 @@ fun HeaderContent(
     }
 }
 
-
 @Composable
 internal fun Header(
     modifier: Modifier = Modifier,
-    cityName: String,
+    city: City,
     onBackClick: () -> Unit,
+    onAddFavoriteClick: (city: City) -> Unit,
 ) {
     ConstraintLayout(modifier = modifier) {
-        val (backIcon, cityText, moreIcon) = createRefs()
+        val (startIcon, cityText, endIcon) = createRefs()
 
-        Icon(
-            imageVector = Icons.Rounded.ArrowBack,
-            tint = Color.White,
-            contentDescription = "back Icon",
-            modifier = Modifier
-                .constrainAs(backIcon) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                }
-                .clickable {
-                    onBackClick()
-                }
-        )
+        if (city.isFavorite) {
+            Icon(
+                imageVector = Icons.Rounded.ArrowBack,
+                tint = Color.White,
+                contentDescription = "back Icon",
+                modifier = Modifier
+                    .constrainAs(startIcon) {
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .clickable {
+                        onBackClick()
+                    }
+            )
+        } else {
+            Text(
+                text = "Cancel",
+                fontSize = 15.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
+                    .constrainAs(startIcon) {
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .clickable {
+                        onBackClick()
+                    },
+                maxLines = 1,
+            )
+        }
+
 
 
         Row(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .constrainAs(cityText) {
-                    start.linkTo(backIcon.end)
-                    end.linkTo(moreIcon.start)
+                    start.linkTo(startIcon.end)
+                    end.linkTo(endIcon.start)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                 },
@@ -250,7 +271,7 @@ internal fun Header(
             )
 
             Text(
-                text = cityName,
+                text = city.name,
                 fontSize = 25.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Normal,
@@ -263,157 +284,36 @@ internal fun Header(
 
 
 
-        Icon(
-            imageVector = Icons.Rounded.Info,
-            tint = Color.White,
-            contentDescription = "back Icon",
-            modifier = Modifier
-                .constrainAs(moreIcon) {
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                }
-        )
-
-
-    }
-}
-
-@Composable
-internal fun Info(modifier: Modifier = Modifier) {
-
-    Column(modifier = modifier.fillMaxWidth()) {
-        Spacer(modifier = Modifier.height(5.dp))
-
-        Divider(
-            Modifier
-                .alpha(0.3f)
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color.White,
-                            Color.White,
-                            Color.White,
-                            Color.White,
-                            Color.Transparent,
-                        )
-                    )
-                )
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        Row(
-            modifier = modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            InfoItem(icon = Icons.Rounded.Info, name = "Wind", value = "13 km/h")
-            InfoItem(icon = Icons.Rounded.Info, name = "Humidity", value = "24%")
-            InfoItem(icon = Icons.Rounded.Info, name = "Pressure", value = "13 Pa")
-        }
-
-
-        Spacer(modifier = Modifier.height(30.dp))
-    }
-
-}
-
-
-@Composable
-fun InfoItem(icon: ImageVector, name: String, value: String) {
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Icon(
-            imageVector = icon,
-            contentDescription = "info icon",
-            Modifier.size(20.dp),
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(text = value, fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Normal)
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(
-            text = name,
-            fontSize = 13.sp,
-            color = Color.White,
-            fontWeight = FontWeight.Normal,
-            modifier = Modifier.alpha(0.5f)
-        )
-
-
-    }
-
-}
-
-
-@OptIn(ExperimentalGlideComposeApi::class)
-@Composable
-fun WeatherItem(daily: Daily, modifier: Modifier = Modifier) {
-
-    Spacer(modifier = Modifier.height(10.dp))
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(start = 40.dp, end = 40.dp),
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        Text(
-            text = daily.date,
-            fontSize = 13.sp,
-            color = MaterialTheme.colors.secondaryVariant,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Start,
-            modifier = Modifier.weight(2f)
-        )
-
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(2f)) {
-            GlideImage(
-                model = daily.icon,
-                contentScale = ContentScale.FillBounds,
-                contentDescription = "weather image",
-                modifier = Modifier.size(40.dp),
+        if (city.isFavorite) {
+            Icon(
+                imageVector = Icons.Rounded.Info,
+                tint = Color.White,
+                contentDescription = "back Icon",
+                modifier = Modifier
+                    .constrainAs(endIcon) {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
             )
-
-
+        } else {
             Text(
-                text = daily.weatherStatus,
-                fontSize = 13.sp,
-                color = MaterialTheme.colors.secondaryVariant,
-                fontWeight = FontWeight.Normal,
-            )
-
-        }
-
-
-        Row(
-            modifier = Modifier.weight(1f),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.Bottom
-        ) {
-
-            Text(
-                text = daily.temperatureMax,
+                text = "Add",
                 fontSize = 15.sp,
-                color = MaterialTheme.colors.secondary,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(end = 5.dp),
+                color = Color.White,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
+                    .constrainAs(endIcon) {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .clickable {
+                        onAddFavoriteClick(city)
+                    },
+                maxLines = 1,
             )
-            Text(
-                text = daily.temperatureMin,
-                fontSize = 14.sp,
-                color = MaterialTheme.colors.secondaryVariant,
-                fontWeight = FontWeight.Medium,
-            )
-
         }
 
     }
-
 }
