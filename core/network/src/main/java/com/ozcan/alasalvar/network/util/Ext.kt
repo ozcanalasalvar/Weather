@@ -6,7 +6,7 @@ import kotlin.math.roundToInt
 
 fun String.asImageUrl() = "https://openweathermap.org/img/wn/$this@2x.png"
 
-fun Double.asTemperature() = "" + this.roundToInt() + "°C"
+fun Double.asTemperature() = "" + this.roundToInt() + "°"
 
 
 fun Int.asCurrentDate(): String {
@@ -31,7 +31,7 @@ fun Int.asDailyDate(): String {
 
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-    return "" + dayName(calendar.timeInMillis) + ", " + day
+    return "" + dayName(prefix = "EEE", timeStamp = calendar.timeInMillis) + ", " + day
 
 }
 
@@ -51,11 +51,11 @@ fun Int.asHour(): String {
 }
 
 
-internal fun dayName(timeStamp: Long): String? {
+internal fun dayName(timeStamp: Long, prefix: String = "EEEE"): String? {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = timeStamp
     val date = calendar.timeInMillis
-    return SimpleDateFormat("EEEE", Locale.ENGLISH).format(date)
+    return SimpleDateFormat(prefix, Locale.ENGLISH).format(date)
 }
 
 internal fun monthName(timeStamp: Long): String? {

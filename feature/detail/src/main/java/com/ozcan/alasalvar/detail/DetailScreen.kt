@@ -8,6 +8,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -27,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -38,6 +40,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.model.data.City
+import com.ozcan.alasalvar.model.data.Daily
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
 
@@ -79,11 +82,13 @@ fun DetailScreen(
                 )
             }
 
-            for (i in 0..100)
-                item {
-                    WeatherItem()
+            itemsIndexed(uiState.data.dailyWeather) { _, daily ->
+                WeatherItem(daily)
+            }
 
-                }
+            itemsIndexed(uiState.data.dailyWeather) { _, daily ->
+                WeatherItem(daily)
+            }
 
         }
     }
@@ -346,54 +351,65 @@ fun InfoItem(icon: ImageVector, name: String, value: String) {
 }
 
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun WeatherItem(modifier: Modifier = Modifier) {
+fun WeatherItem(daily: Daily, modifier: Modifier = Modifier) {
 
     Spacer(modifier = Modifier.height(10.dp))
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(all = 5.dp),
+            .padding(start = 20.dp, end = 30.dp),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         Text(
-            text = "Monday, 16",
+            text = daily.date,
             fontSize = 13.sp,
             color = MaterialTheme.colors.secondaryVariant,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Start,
+            modifier = Modifier.weight(2f)
         )
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = Icons.Rounded.Favorite,
-                contentDescription = "info icon",
-                Modifier.size(20.dp),
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(2f)) {
+            GlideImage(
+                model = daily.icon,
+                contentScale = ContentScale.FillBounds,
+                contentDescription = "weather image",
+                modifier = Modifier.size(40.dp),
             )
+
+
             Text(
-                text = "Storm",
+                text = daily.weatherStatus,
                 fontSize = 13.sp,
                 color = MaterialTheme.colors.secondaryVariant,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.Normal,
             )
 
         }
 
 
-        Row {
+        Row(
+            modifier = Modifier.weight(1f),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.Bottom
+        ) {
 
             Text(
-                text = "+25°",
-                fontSize = 13.sp,
+                text = daily.temperatureMax,
+                fontSize = 15.sp,
                 color = MaterialTheme.colors.secondary,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(end = 5.dp),
             )
             Text(
-                text = "+19°",
-                fontSize = 13.sp,
+                text = daily.temperatureMin,
+                fontSize = 14.sp,
                 color = MaterialTheme.colors.secondaryVariant,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.Medium,
             )
 
         }

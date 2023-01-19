@@ -20,7 +20,7 @@ data class HourlyDto(
 
 
 fun HourlyDto.asExternalModel(): Hourly = Hourly(
-    temperature = temp.asTemperature(),
+    temperature = temp.asTemperature() + "C",
     icon = weather[0].icon.asImageUrl(),
     hour = dt.asHour(),
 )
