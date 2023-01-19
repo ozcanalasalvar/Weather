@@ -36,6 +36,7 @@ import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.detail.component.DailyWeatherItem
 import com.ozcan.alasalvar.detail.component.HourlyWeatherItem
 import com.ozcan.alasalvar.detail.component.Info
+import com.ozcan.alasalvar.detail.component.Loading
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Hourly
 import com.ozcan.alasalvar.model.data.WeatherDetail
@@ -50,38 +51,39 @@ fun DetailScreen(
     val uiState = viewModel.uiState
 
     val scrollState = rememberLazyListState()
-    if (uiState.data == null) {
-        Text(text = "boşş")
-        return
+    if (uiState.isLoading) {
+        Loading()
     }
 
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        topBar = {
-            HeaderContent(weatherDetail = uiState.data, lazyScrollState = scrollState)
-        }
-    ) {
-
-        LazyColumn(
+    if (uiState.data != null) {
+        Scaffold(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colors.background),
-            state = scrollState
+                .fillMaxSize(),
+            topBar = {
+                HeaderContent(weatherDetail = uiState.data, lazyScrollState = scrollState)
+            }
         ) {
 
-            item {
-                Box(modifier = Modifier.height(20.dp))
-            }
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colors.background),
+                state = scrollState
+            ) {
 
-            itemsIndexed(uiState.data.dailyWeather) { _, daily ->
-                DailyWeatherItem(daily)
-            }
+                item {
+                    Box(modifier = Modifier.height(20.dp))
+                }
 
-            itemsIndexed(uiState.data.dailyWeather) { _, daily ->
-                DailyWeatherItem(daily)
-            }
+                itemsIndexed(uiState.data.dailyWeather) { _, daily ->
+                    DailyWeatherItem(daily)
+                }
 
+                itemsIndexed(uiState.data.dailyWeather) { _, daily ->
+                    DailyWeatherItem(daily)
+                }
+
+            }
         }
     }
 
@@ -109,7 +111,7 @@ fun HeaderContent(
         tween(500)
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 570.dp else 300.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
+        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 570.dp else 280.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
         tween(500)
     )
 

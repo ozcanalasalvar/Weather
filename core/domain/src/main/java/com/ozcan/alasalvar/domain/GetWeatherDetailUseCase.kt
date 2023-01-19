@@ -2,6 +2,7 @@ package com.ozcan.alasalvar.domain
 
 import com.ozcan.alasalvar.common.dispatcher.AppDispatchers
 import com.ozcan.alasalvar.common.dispatcher.Dispatcher
+import com.ozcan.alasalvar.common.result.Result
 import com.ozcan.alasalvar.data.CityRepository
 import com.ozcan.alasalvar.data.WeatherRepository
 import com.ozcan.alasalvar.model.data.WeatherDetail
@@ -17,12 +18,16 @@ class GetWeatherDetailUseCase @Inject constructor(
     private val cityRepository: CityRepository,
     private val weatherRepository: WeatherRepository
 ) {
-    operator fun invoke(cityId: Int): Flow<WeatherDetail> = flow {
-
-        val city = cityRepository.getCity(cityId)
-
-        val response = weatherRepository.getWeatherDetail(city.lat, city.lon)
-        emit(response.asExternalModel().copy(city = city))
+    operator fun invoke(cityId: Int): Flow<Result<WeatherDetail>> = flow {
+        val response = try {
+            val city = cityRepository.getCity(cityId)
+            val response = weatherRepository.getWeatherDetail(city.lat, city.lon)
+            // throw Exception()
+            Result.Success(response.asExternalModel().copy(city = city))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+        emit(response)
 
     }.flowOn(ioDispatcher)
 }
