@@ -10,6 +10,6 @@ internal val LightTextSecondary = Color(0xFF7895AC) //bgdarkx
 
 val Blue40 = Color(0xFF84CAF7) //bgdarkx
 val BlueLight = Color(0XFF45b6fe) //bgdarkx
-val Blue10 = Color(0XFF055BE7)
+val Blue10 = Color(0XFF0b4EA1)
 val Blue20 = Color(0XFF2A60B8) //gradiant1
 val Blue30 = Color(0XFF3879E0) //gradiant2

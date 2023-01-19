@@ -359,7 +359,7 @@ fun WeatherItem(daily: Daily, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 30.dp),
+            .padding(start = 40.dp, end = 40.dp),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
