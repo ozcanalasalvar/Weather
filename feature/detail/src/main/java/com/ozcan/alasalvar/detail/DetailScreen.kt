@@ -70,6 +70,10 @@ fun DetailScreen(
             state = scrollState
         ) {
 
+            item {
+                Box(modifier = Modifier.height(20.dp))
+            }
+
             itemsIndexed(uiState.data.dailyWeather) { _, daily ->
                 DailyWeatherItem(daily)
             }
@@ -237,7 +241,7 @@ internal fun Header(
                 text = "Cancel",
                 fontSize = 15.sp,
                 color = Color.White,
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier
                     .constrainAs(startIcon) {
                         start.linkTo(parent.start)
@@ -301,7 +305,7 @@ internal fun Header(
                 text = "Add",
                 fontSize = 15.sp,
                 color = Color.White,
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier
                     .constrainAs(endIcon) {
                         end.linkTo(parent.end)
