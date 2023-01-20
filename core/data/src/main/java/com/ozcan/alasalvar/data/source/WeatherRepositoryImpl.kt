@@ -8,8 +8,9 @@ import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(private val weatherDataSource: WeatherDataSource) :
     WeatherRepository {
-    override suspend fun getWeatherData(cityName: String): WeatherDto {
-        return weatherDataSource.getWeatherData(cityName)
+
+    override suspend fun getWeatherData(cityName: String?, lat: Double?, lon: Double?): WeatherDto {
+        return weatherDataSource.getWeatherData(cityName,lat,lon)
     }
 
     override suspend fun getWeatherDetail(lat: Double, lon: Double): WeatherDetailDto {

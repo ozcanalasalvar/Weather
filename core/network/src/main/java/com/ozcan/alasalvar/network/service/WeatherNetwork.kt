@@ -23,7 +23,9 @@ private interface WeatherService {
 
     @GET("weather")
     suspend fun getWeatherData(
-        @Query("q") query: String,
+        @Query("q") query: String? = null,
+        @Query("lat") lat: Double? = null,
+        @Query("lon") lon: Double? = null,
     ): WeatherDto
 
     @GET("onecall?units=metric&exclude=minutely")
@@ -66,8 +68,8 @@ class WeatherNetwork @Inject constructor(networkJson: Json) : WeatherDataSource 
         .create(WeatherService::class.java)
 
 
-    override suspend fun getWeatherData(cityName: String): WeatherDto =
-        service.getWeatherData(cityName)
+    override suspend fun getWeatherData(cityName: String?, lat: Double?, lon: Double?): WeatherDto =
+        service.getWeatherData(cityName, lat, lon)
 
     override suspend fun getWeatherDetail(lat: Double, lon: Double): WeatherDetailDto =
         service.getWeatherDetail(lat, lon)
