@@ -17,9 +17,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.AppSearchView
 import com.ozcan.alasalvar.model.data.City
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(
     onCancelClick: () -> Unit,
@@ -27,7 +30,7 @@ fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel()
 ) {
 
-    val uiState: SearchUiState by viewModel.uiState.collectAsState()
+    val uiState: SearchUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

@@ -46,8 +46,11 @@ android {
 dependencies {
     implementation(project(":feature:search"))
     implementation(project(":feature:detail"))
+    implementation(project(":feature:home"))
 
     implementation(project(":core:designsystem"))
+
+    implementation(libs.accompanist.permissions)
 
     //implementation(libs.androidx.core.ktx)
 //    implementation(libs.androidx.compose.ui.core)
