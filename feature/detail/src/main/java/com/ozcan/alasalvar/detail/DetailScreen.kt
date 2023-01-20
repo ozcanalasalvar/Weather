@@ -45,7 +45,9 @@ import weather.feature.detail.R
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel(),
+    onBackClick: () -> Unit,
+    onAddFavoriteClick: (city: City) -> Unit,
 ) {
 
     val uiState = viewModel.uiState
@@ -60,7 +62,12 @@ fun DetailScreen(
             modifier = Modifier
                 .fillMaxSize(),
             topBar = {
-                HeaderContent(weatherDetail = uiState.data, lazyScrollState = scrollState)
+                HeaderContent(
+                    weatherDetail = uiState.data,
+                    lazyScrollState = scrollState,
+                    onBackClick = onBackClick,
+                    onAddFavoriteClick = onAddFavoriteClick
+                )
             }
         ) {
 
@@ -97,7 +104,9 @@ fun DetailScreen(
 fun HeaderContent(
     weatherDetail: WeatherDetail,
     modifier: Modifier = Modifier,
-    lazyScrollState: LazyListState
+    lazyScrollState: LazyListState,
+    onBackClick: () -> Unit,
+    onAddFavoriteClick: (city: City) -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -149,8 +158,8 @@ fun HeaderContent(
                     .fillMaxWidth()
                     .layoutId("header"),
                 city = weatherDetail.city!!,
-                onBackClick = {},
-                onAddFavoriteClick = {}
+                onBackClick = onBackClick,
+                onAddFavoriteClick = onAddFavoriteClick
             )
 
             GlideImage(
@@ -278,9 +287,9 @@ internal fun Header(
 
             Text(
                 text = city.name,
-                fontSize = 25.sp,
+                fontSize = 22.sp,
                 color = Color.White,
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(start = 3.dp),

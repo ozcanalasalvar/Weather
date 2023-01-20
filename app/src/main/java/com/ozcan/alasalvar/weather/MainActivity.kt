@@ -21,7 +21,14 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {
             WeatherTheme {
-                DetailScreen()
+                DetailScreen(
+                    onBackClick = {
+
+                    },
+                    onAddFavoriteClick = {
+
+                    }
+                )
 
 //                SearchScreen(
 //                    onCancelClick = {
