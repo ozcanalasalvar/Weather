@@ -10,6 +10,7 @@ moshi = "2.6.2"
 junit4 = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxEspresso = "3.5.1"
+gmsLocation="20.0.0"
 #Compose Versions
 androidxComposeBom = "2022.12.00"
 compose = "1.3.2"
@@ -62,6 +63,9 @@ hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-comp
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+#Location Services
+android-gms-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "gmsLocation" }
+
 #Retrofit
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpLogging" }
