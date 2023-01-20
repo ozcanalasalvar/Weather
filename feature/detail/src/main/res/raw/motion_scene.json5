@@ -71,7 +71,7 @@
         height: 150,
         top: ['header', 'bottom', 0],
         bottom: ['info', 'top', 0],
-        start: ['parent', 'start', 0]
+        start: ['parent', 'start', 10]
       },
       weatherTemp: {
         width:  "wrap",
