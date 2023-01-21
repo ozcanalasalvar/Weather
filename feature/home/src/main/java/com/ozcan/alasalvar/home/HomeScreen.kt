@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -230,7 +231,7 @@ fun Header(
     modifier: Modifier = Modifier
 ) {
 
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+    Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Column {
             Text(
                 text = "Hello",
@@ -261,13 +262,15 @@ fun Header(
                 )
                 .background(MaterialTheme.colors.surface)
                 .align(Alignment.CenterVertically)
+                .clickable { onSearchClick() },
         ) {
             Icon(
                 imageVector = Icons.Rounded.Search,
                 contentDescription = "main search",
                 modifier = Modifier
                     .padding(all = 5.dp)
-                    .size(20.dp)
+                    .size(20.dp),
+                tint = MaterialTheme.colors.onBackground
             )
         }
 

@@ -18,6 +18,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import javax.inject.Inject
 
+@OptIn(ExperimentalSerializationApi::class)
 class CityDataSourceImpl @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
     cityDatabase: CityDatabase,
@@ -27,13 +28,7 @@ class CityDataSourceImpl @Inject constructor(
 
     private val dao = cityDatabase.cityDao()
 
-    companion object {
-        private const val CITY_ASSET = "city.json"
-    }
-
-
-    @OptIn(ExperimentalSerializationApi::class)
-    override fun getCities(): Flow<List<City>> {
+    init {
         CoroutineScope(ioDispatcher).launch {
             val cache = dao.getCityList()
             if (cache.isNullOrEmpty()) {
@@ -41,7 +36,15 @@ class CityDataSourceImpl @Inject constructor(
                 dao.insertCities(cities.toEntityList())
             }
         }
+    }
 
+    companion object {
+        private const val CITY_ASSET = "city.json"
+    }
+
+
+    @OptIn(ExperimentalSerializationApi::class)
+    override fun getCities(): Flow<List<City>> {
         return dao.getCities().map { city -> city.map { it.asExternalModel() } }
     }
 
