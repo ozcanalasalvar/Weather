@@ -21,7 +21,7 @@ import javax.inject.Singleton
 
 private interface WeatherService {
 
-    @GET("weather")
+    @GET("weather?units=metric")
     suspend fun getWeatherData(
         @Query("q") query: String? = null,
         @Query("lat") lat: Double? = null,
