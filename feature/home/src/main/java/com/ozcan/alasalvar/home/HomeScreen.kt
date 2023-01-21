@@ -78,7 +78,7 @@ fun HomeScreen(
             }
 
 
-            uiState.favorites?.let { weathers ->
+            if (!uiState.favorites.isNullOrEmpty()) {
 
                 item {
                     Text(
@@ -92,7 +92,7 @@ fun HomeScreen(
                     )
                 }
 
-                itemsIndexed(weathers) { _, weather ->
+                itemsIndexed(uiState.favorites!!) { _, weather ->
                     WeatherListItem(weather = weather, onClick = {
                         onWeatherClick(weather)
                     })

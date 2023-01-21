@@ -9,6 +9,8 @@ import com.ozcan.alasalvar.detail.navigation.detailScreen
 import com.ozcan.alasalvar.detail.navigation.navigateToDetail
 import com.ozcan.alasalvar.home.navigation.homeNavigationRoute
 import com.ozcan.alasalvar.home.navigation.homeScreen
+import com.ozcan.alasalvar.search.navigation.navigateToSearch
+import com.ozcan.alasalvar.search.navigation.searchScreen
 
 @Composable
 fun AppNavHost(
@@ -21,7 +23,7 @@ fun AppNavHost(
     NavHost(navController = navController, startDestination = startDestination) {
         homeScreen(
             onSearchClick = {
-
+                navController.navigateToSearch()
             },
             onWeatherClick = { weather ->
 //                navController.navigate(Screen.Details.withArgs(weather.city.id))
@@ -32,6 +34,11 @@ fun AppNavHost(
         detailScreen(onBackClick = {
             navController.popBackStack()
         }, onAddFavoriteClick = {})
+
+
+        searchScreen(onCancelClick = {
+            navController.popBackStack()
+        }, onCityClicked = {})
 
     }
 
