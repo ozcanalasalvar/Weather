@@ -16,4 +16,5 @@ fun City.asEntity(): CityEntity = CityEntity(
     lon = lon,
     name = name,
     isFavorite = isFavorite,
+    isCurrentLocation = isCurrentLocation,
 )

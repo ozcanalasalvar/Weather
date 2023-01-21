@@ -11,4 +11,6 @@ interface CityRepository {
 
     suspend fun getCity(cityId: Int): City
 
+    fun getFavoriteCities(): Flow<List<City>>
+
 }

@@ -9,5 +9,6 @@ data class City(
     val lat: Double,
     val lon: Double,
     val name: String,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val isCurrentLocation: Boolean = false
 )

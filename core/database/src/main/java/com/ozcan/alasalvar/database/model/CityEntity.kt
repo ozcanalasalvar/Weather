@@ -14,7 +14,8 @@ data class CityEntity(
     val lat: Double,
     val lon: Double,
     val name: String,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val isCurrentLocation: Boolean = false
 )
 
 fun CityEntity.asExternalModel() = City(
@@ -24,4 +25,5 @@ fun CityEntity.asExternalModel() = City(
     lon = lon,
     name = name,
     isFavorite = isFavorite,
+    isCurrentLocation = isCurrentLocation,
 )

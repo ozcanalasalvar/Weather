@@ -48,6 +48,18 @@ class CityDataSourceImpl @Inject constructor(
         return dao.getCities().map { city -> city.map { it.asExternalModel() } }
     }
 
+    override fun getFavoriteCities(): Flow<List<City>> {
+        return dao.getFavorites().map { city -> city.map { it.asExternalModel() } }
+    }
+
+    override suspend fun delete(city: City) {
+        dao.delete(city.asEntity())
+    }
+
+    override suspend fun getCurrentLocation(): City {
+        return dao.getCurrentLocation().asExternalModel()
+    }
+
 
     override suspend fun updateStation(city: City) {
         dao.updateStation(city.asEntity())

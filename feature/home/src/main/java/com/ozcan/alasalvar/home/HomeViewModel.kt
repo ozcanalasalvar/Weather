@@ -46,11 +46,10 @@ class HomeViewModel @Inject constructor(
 
 
     private fun fetchCities() = viewModelScope.launch {
-        cityRepository.getCities()
+        cityRepository.getFavoriteCities()
             .map { city -> city.filter { !it.isFavorite } }
             .collectLatest {
                 getWeatherList(it)
-
             }
     }
 
