@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
         initialValue = HomeUiState()
     )
 
-    init {
+    fun init() {
         fetchCities()
         getCurrentLocation()
     }
@@ -48,6 +48,7 @@ class HomeViewModel @Inject constructor(
     private fun fetchCities() = viewModelScope.launch {
         cityRepository.getFavoriteCities()
             .map { city -> city.filter { !it.isFavorite } }
+            .distinctUntilChanged()
             .collectLatest {
                 getWeatherList(it)
             }

@@ -3,9 +3,11 @@ package com.ozcan.alasalvar.detail
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozcan.alasalvar.common.result.Result
+import com.ozcan.alasalvar.detail.navigation.detailNavigationRoute
 import com.ozcan.alasalvar.domain.GetWeatherDetailUseCase
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,19 +23,21 @@ data class DetailUiState(
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val detailUseCase: GetWeatherDetailUseCase
+    private val detailUseCase: GetWeatherDetailUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
 
     var uiState by mutableStateOf(DetailUiState())
         private set
 
-    init {
-        getDetail()
+
+    fun init(cityId: Int) {
+        getDetail(cityId = cityId)
     }
 
-    private fun getDetail() = viewModelScope.launch {
-        detailUseCase.invoke(6359304).collectLatest { result ->
+    private fun getDetail(cityId: Int) = viewModelScope.launch {
+        detailUseCase.invoke(cityId).collectLatest { result ->
             uiState = when (result) {
                 is Result.Error -> {
                     uiState.copy(

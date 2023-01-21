@@ -38,18 +38,21 @@ import com.ozcan.alasalvar.detail.component.HourlyWeatherItem
 import com.ozcan.alasalvar.detail.component.Info
 import com.ozcan.alasalvar.detail.component.Loading
 import com.ozcan.alasalvar.model.data.City
-import com.ozcan.alasalvar.model.data.Hourly
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(
+    cityId: Int,
     viewModel: DetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onAddFavoriteClick: (city: City) -> Unit,
 ) {
 
+    LaunchedEffect(Unit) {
+        viewModel.init(cityId)
+    }
     val uiState = viewModel.uiState
 
     val scrollState = rememberLazyListState()

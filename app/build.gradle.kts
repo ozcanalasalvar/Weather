@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":feature:home"))
 
     implementation(project(":core:designsystem"))
+    implementation(project(":core:model"))
 
     implementation(libs.accompanist.permissions)
 

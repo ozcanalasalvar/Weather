@@ -44,6 +44,10 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
+    LaunchedEffect(Unit) {
+        viewModel.init()
+    }
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val scrollState = rememberLazyListState()
