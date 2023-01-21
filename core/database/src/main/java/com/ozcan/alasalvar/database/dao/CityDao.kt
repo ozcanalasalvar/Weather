@@ -16,7 +16,7 @@ interface CityDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCities(cityList: List<CityEntity>)
 
-    @Update
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateStation(city: CityEntity)
 
     @Query("SELECT * FROM cities WHERE id IS :cityId")
