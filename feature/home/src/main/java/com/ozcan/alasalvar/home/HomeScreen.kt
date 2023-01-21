@@ -80,7 +80,7 @@ fun HomeScreen(
                     Text(
                         text = "Favorites",
                         fontSize = 18.sp,
-                        color = Color.White,
+                        color = MaterialTheme.colors.onBackground,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -236,7 +236,7 @@ fun Header(
             Text(
                 text = "Hello",
                 fontSize = 25.sp,
-                color = Color.White,
+                color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier,
                 maxLines = 1,
@@ -244,7 +244,7 @@ fun Header(
             Text(
                 text = "Discover the weather",
                 fontSize = 15.sp,
-                color = Color.White,
+                color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier,
                 maxLines = 1,
