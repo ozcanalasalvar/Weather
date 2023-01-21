@@ -59,7 +59,7 @@ fun AppSearchView(
                 onTextChanged(onQueryChanged)
             },
             textStyle = TextStyle(
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colors.secondary
             ),
@@ -87,7 +87,7 @@ fun AppSearchView(
                     if (query.isEmpty()) {
                         Text(
                             text = label,
-                            fontSize = 18.sp,
+                            fontSize = 15.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.LightGray
                         )

@@ -55,7 +55,7 @@ fun SearchScreen(
                 Text(
                     text = city.name + " ," + city.country,
                     color = MaterialTheme.colors.secondary,
-                    fontSize = 18.sp
+                    fontSize = 15.sp
                 )
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -111,7 +111,7 @@ fun SearchField(
         ) {
             Text(
                 text = "Cancel",
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 color = MaterialTheme.colors.secondary,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
