@@ -27,28 +27,30 @@ fun AppNavHost(
                 navController.navigateToSearch()
             },
             onWeatherClick = { weather ->
-                // navController.navigate(Screen.Details.withArgs(weather.city.id)){}
                 navController.navigateToDetail(cityId = weather.city.id)
             }
         )
 
-        detailScreen(onBackClick = {
-            navController.popBackStack()
-        }, onAddFavoriteClick = {
-            navController.navigateToHome {
-                popUpTo(homeNavigationRoute) {
-                    inclusive = true
+        detailScreen(
+            onBackClick = {
+                navController.popBackStack()
+            },
+            onAddFavoriteClick = {
+                navController.navigateToHome {
+                    popUpTo(homeNavigationRoute) {
+                        inclusive = true
+                    }
                 }
-            }
-        })
+            })
 
 
-        searchScreen(onCancelClick = {
-            navController.popBackStack()
-        }, onCityClicked = { city ->
-            navController.navigateToDetail(cityId = city.id)
-        })
-
+        searchScreen(
+            onCancelClick = {
+                navController.popBackStack()
+            },
+            onCityClicked = { city ->
+                navController.navigateToDetail(cityId = city.id)
+            })
     }
 
 }
