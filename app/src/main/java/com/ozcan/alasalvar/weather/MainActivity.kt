@@ -15,9 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.ozcan.alasalvar.designsystem.theme.ui.WeatherTheme
-import com.ozcan.alasalvar.detail.DetailScreen
-import com.ozcan.alasalvar.home.HomeScreen
-import com.ozcan.alasalvar.search.SearchScreen
 import dagger.hilt.android.AndroidEntryPoint
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.ozcan.alasalvar.weather.navigation.AppNavHost
@@ -37,7 +34,7 @@ class MainActivity : ComponentActivity() {
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-            //viewModel.loadWeatherInfo()
+
         }
         permissionLauncher.launch(
             arrayOf(
@@ -57,47 +54,7 @@ class MainActivity : ComponentActivity() {
                     AppNavHost()
                 }
 
-//                val multiplePermissionsState = rememberMultiplePermissionsState(
-//                    listOf(
-//                        Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.ACCESS_COARSE_LOCATION,
-//                    )
-//                )
-//
-//                if (!multiplePermissionsState.allPermissionsGranted)
-//                    multiplePermissionsState.launchMultiplePermissionRequest()
-
-              //  HomeScreen(onSearchClick = {}, onWeatherClick = {})
-//                DetailScreen(
-//                    onBackClick = {
-//
-//                    },
-//                    onAddFavoriteClick = {
-//
-//                    }
-//                )
-
-//                SearchScreen(
-//                    onCancelClick = {
-//
-//                    },
-//                    onCityClicked = {
-//
-//                    })
             }
         }
     }
 }
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreview() {
-//    WeatherTheme {
-//        Greeting("Android")
-//    }
-//}
