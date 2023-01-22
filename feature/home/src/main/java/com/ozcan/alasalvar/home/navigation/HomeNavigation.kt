@@ -8,8 +8,8 @@ import com.ozcan.alasalvar.model.data.Weather
 
 const val homeNavigationRoute = "home_route"
 
-fun NavController.navigateTo(navOptions: NavOptions? = null) {
-    this.navigate(homeNavigationRoute, navOptions)
+fun NavController.navigateToHome(builder: NavOptionsBuilder.() -> Unit) {
+    this.navigate(homeNavigationRoute, navOptions(builder))
 }
 
 fun NavGraphBuilder.homeScreen(

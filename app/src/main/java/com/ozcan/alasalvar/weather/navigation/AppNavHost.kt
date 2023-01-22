@@ -9,6 +9,7 @@ import com.ozcan.alasalvar.detail.navigation.detailScreen
 import com.ozcan.alasalvar.detail.navigation.navigateToDetail
 import com.ozcan.alasalvar.home.navigation.homeNavigationRoute
 import com.ozcan.alasalvar.home.navigation.homeScreen
+import com.ozcan.alasalvar.home.navigation.navigateToHome
 import com.ozcan.alasalvar.search.navigation.navigateToSearch
 import com.ozcan.alasalvar.search.navigation.searchScreen
 
@@ -26,14 +27,20 @@ fun AppNavHost(
                 navController.navigateToSearch()
             },
             onWeatherClick = { weather ->
-//                navController.navigate(Screen.Details.withArgs(weather.city.id))
+                // navController.navigate(Screen.Details.withArgs(weather.city.id)){}
                 navController.navigateToDetail(cityId = weather.city.id)
             }
         )
 
         detailScreen(onBackClick = {
             navController.popBackStack()
-        }, onAddFavoriteClick = {})
+        }, onAddFavoriteClick = {
+            navController.navigateToHome {
+                popUpTo(homeNavigationRoute) {
+                    inclusive = true
+                }
+            }
+        })
 
 
         searchScreen(onCancelClick = {
