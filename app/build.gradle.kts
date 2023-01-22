@@ -53,42 +53,11 @@ dependencies {
 
     implementation(libs.accompanist.permissions)
 
-    //implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.compose.ui.core)
-//    implementation(libs.androidx.compose.material)
-//    implementation(libs.androidx.compose.ui.tooling.preview)
-//    implementation(libs.androidx.compose.lifecycle.viewmodel)
-//    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-//    debugImplementation(libs.androidx.compose.ui.tooling)
-//    implementation(libs.androidx.compose.ui.util)
-//
-//    //ViewPager
-//    implementation(libs.com.google.accompanist.pager)
-//    implementation(libs.com.google.accompanist.pager.indicators)
-//
-//    //Glide
-//    implementation(libs.glide.compose)
-//    //constraintlayout
-//    implementation(libs.androidx.constraintlayout.compose)
-//    implementation(libs.androidx.navigation.compose)
-
-    // Dagger & Hilt
-//    implementation(libs.hilt.android)
-//    implementation(libs.hilt.navigation.compose)
-//    kapt(libs.hilt.android.compiler)
-
-
-
-//    implementation(libs.room.runtime)
-//    implementation(libs.room.ktx)
-//    kapt(libs.room.compiler)
 }
 
 kapt {
