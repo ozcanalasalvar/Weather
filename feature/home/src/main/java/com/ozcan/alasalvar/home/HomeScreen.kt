@@ -165,7 +165,7 @@ fun WeatherListItem(
 
             Text(
                 text = if (isCurrent) "Current Location" else weather.city.name,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier
