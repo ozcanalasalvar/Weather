@@ -1,5 +1,6 @@
 enableFeaturePreview("VERSION_CATALOGS")
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         gradlePluginPortal()
         google()
@@ -21,3 +22,7 @@ include(":core:network")
 include(":core:model")
 include(":feature:search")
 include(":core:common")
+include(":core:designsystem")
+include(":feature:detail")
+include(":core:domain")
+include(":feature:home")

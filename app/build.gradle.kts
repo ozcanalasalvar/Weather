@@ -1,17 +1,14 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    id("weather.android.application")
+    id("weather.android.application.compose")
+    id("weather.android.room")
+    id("weather.android.hilt")
 }
 
 android {
-    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.ozcan.alasalvar.weather"
-        minSdk = 21
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -37,20 +34,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
-    }
 
     packagingOptions {
         resources {
@@ -60,37 +44,51 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:search"))
+    implementation(project(":feature:detail"))
+    implementation(project(":feature:home"))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.compose.ui:ui:1.3.2")
-    implementation("androidx.compose.material:material:1.4.0-alpha03")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    //implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.11"
-    implementation("androidx.activity:activity-compose:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.2")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.3.2")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.2")
-    implementation("androidx.compose.ui:ui-util:1.3.2")
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:model"))
 
-    //ViewPager
-    implementation("com.google.accompanist:accompanist-pager:0.23.1")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+    implementation(libs.accompanist.permissions)
 
-    //Glide
-    implementation("com.github.bumptech.glide:compose:1.0.0-alpha.1")
-    //constraintlayout
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    //implementation(libs.androidx.core.ktx)
+//    implementation(libs.androidx.compose.ui.core)
+//    implementation(libs.androidx.compose.material)
+//    implementation(libs.androidx.compose.ui.tooling.preview)
+//    implementation(libs.androidx.compose.lifecycle.viewmodel)
+//    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    implementation("androidx.navigation:navigation-compose:2.5.3")
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+//    debugImplementation(libs.androidx.compose.ui.tooling)
+//    implementation(libs.androidx.compose.ui.util)
+//
+//    //ViewPager
+//    implementation(libs.com.google.accompanist.pager)
+//    implementation(libs.com.google.accompanist.pager.indicators)
+//
+//    //Glide
+//    implementation(libs.glide.compose)
+//    //constraintlayout
+//    implementation(libs.androidx.constraintlayout.compose)
+//    implementation(libs.androidx.navigation.compose)
 
     // Dagger & Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    kapt("com.google.dagger:hilt-android-compiler:2.42")
+//    implementation(libs.hilt.android)
+//    implementation(libs.hilt.navigation.compose)
+//    kapt(libs.hilt.android.compiler)
+
+
+
+//    implementation(libs.room.runtime)
+//    implementation(libs.room.ktx)
+//    kapt(libs.room.compiler)
 }
 
 kapt {

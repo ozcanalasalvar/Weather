@@ -1,0 +1,117 @@
+{
+  ConstraintSets: {
+    start: {
+      header: {
+        width: "spread",
+        height: "wrap",
+        top: ['parent', 'top', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
+      weatherIcon: {
+        width: 250,
+        height: 250,
+        top: ['header', 'bottom', -20],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
+      weatherTemp: {
+        width:  "wrap",
+        height:  "wrap",
+        top: ['weatherIcon', 'bottom', -60],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0],
+        custom: {
+          fontSize: 70,
+        }
+      },
+      weatherName: {
+        width:  "wrap",
+        height:  "wrap",
+        top: ['weatherTemp', 'bottom', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0],
+        custom: {
+          fontSize: 25,
+        }
+      },
+      dateText: {
+        width:  "wrap",
+        height:  "wrap",
+        top: ['weatherName', 'bottom', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
+      hourlyList: {
+        width:  "spread",
+        height:  "wrap",
+        alpha : 1,
+        top: ['dateText', 'bottom', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
+      info: {
+        width:  "spread",
+        height:  "wrap",
+        top: ['hourlyList', 'bottom', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
+    },
+    end: {
+      header: {
+        width: "spread",
+        height: "wrap",
+        top: ['parent', 'top', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
+      weatherIcon: {
+        width: 150,
+        height: 150,
+        top: ['header', 'bottom', 0],
+        bottom: ['info', 'top', 0],
+        start: ['parent', 'start', 10]
+      },
+      weatherTemp: {
+        width:  "wrap",
+        height:  "wrap",
+        top: ['weatherIcon', 'top', 0],
+        start: ['weatherIcon', 'end', 0],
+        bottom: ['weatherIcon', 'bottom', 0],
+        custom: {
+          fontSize: 50,
+        }
+      },
+      weatherName: {
+        width:  "wrap",
+        height:  "wrap",
+        bottom: ['weatherTemp', 'top', 0],
+        start: ['weatherIcon', 'end', 0],
+        custom: {
+          fontSize: 20,
+        }
+      },
+      dateText: {
+        width:  "wrap",
+        height:  "wrap",
+        top: ['weatherTemp', 'bottom', 0],
+        start: ['weatherIcon', 'end', 0],
+      },
+      hourlyList: {
+        width:  "spread",
+        height:  "wrap",
+        alpha : 0,
+        top: ['weatherIcon', 'bottom', 0],
+        end: ['parent', 'start', 30],
+      },
+      info: {
+        width:  "spread",
+        height:  "wrap",
+        top: ['weatherIcon', 'bottom', 0],
+        start: ['parent', 'start', 0],
+        end: ['parent', 'end', 0]
+      },
+    }
+  },
+}
