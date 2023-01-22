@@ -54,7 +54,7 @@ class DefaultLocationTracker @Inject constructor(
         }
         locationClient?.requestLocationUpdates(mLocationRequest, callback, Looper.getMainLooper())
             ?.addOnFailureListener { e ->
-                close(e) // in case of exception, close the Flow
+                //close(e) // in case of exception, close the Flow
             }
         // clean up when Flow collection ends
         awaitClose {
