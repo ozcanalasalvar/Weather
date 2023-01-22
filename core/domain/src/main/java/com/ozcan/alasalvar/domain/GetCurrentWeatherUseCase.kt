@@ -19,7 +19,7 @@ class GetCurrentWeatherUseCase @Inject constructor(
     private val weatherRepository: WeatherRepository,
     @Dispatcher(AppDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) {
-    suspend operator fun invoke(location: Location): Flow<Result<Weather>> = flow {
+    suspend operator fun invoke(location: Location):Result<Weather> {
         try {
             val response = weatherRepository.getWeatherData(
                 lat = location.latitude,
@@ -29,9 +29,9 @@ class GetCurrentWeatherUseCase @Inject constructor(
             val city = response.city.copy(isFavorite = true, isCurrentLocation = true)
             cityRepository.updateStation(city)
 
-            emit(Result.Success(response))
+           return Result.Success(response)
         } catch (e: Exception) {
-            emit(Result.Error(e))
+           return Result.Error(e)
         }
-    }.flowOn(ioDispatcher)
+    }
 }

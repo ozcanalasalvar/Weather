@@ -19,7 +19,7 @@ class DefaultLocationTracker @Inject constructor(
     private val application: Application
 ) : LocationTracker {
 
-    override suspend fun getCurrentLocation() = callbackFlow {
+    override  fun getCurrentLocation() = callbackFlow {
         val locationClient = LocationServices.getFusedLocationProviderClient(application)
         val hasAccessFineLocationPermission = ContextCompat.checkSelfPermission(
             application,

@@ -51,6 +51,7 @@ fun AppNavHost(
             onCityClicked = { city ->
                 navController.navigateToDetail(cityId = city.id)
             })
+
     }
 
 }

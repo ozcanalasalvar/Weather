@@ -18,7 +18,7 @@ class GetWeatherListUseCase @Inject constructor(
     @Dispatcher(AppDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke(cities: List<City>): Flow<Result<List<Weather>>> = flow {
+    suspend operator fun invoke(cities: List<City>): Result<List<Weather>> {
         val deferredList = mutableListOf<Deferred<Weather>>()
         val list = mutableListOf<Weather>()
 
@@ -41,6 +41,6 @@ class GetWeatherListUseCase @Inject constructor(
             }
         }
 
-        emit(Result.Success(list))
-    }.flowOn(ioDispatcher)
+        return Result.Success(list)
+    }
 }

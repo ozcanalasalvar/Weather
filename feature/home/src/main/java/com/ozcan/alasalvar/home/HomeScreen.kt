@@ -44,11 +44,12 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
-    LaunchedEffect(Unit) {
-        viewModel.init()
-    }
+//    LaunchedEffect(Unit) {
+//        viewModel.init()
+//    }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val locationUiState by viewModel.locationUiState.collectAsStateWithLifecycle()
 
     val scrollState = rememberLazyListState()
 
@@ -68,12 +69,12 @@ fun HomeScreen(
             state = scrollState,
         ) {
 
-            uiState.current?.let { weather ->
+            locationUiState.current?.let { weather ->
                 item {
                     WeatherListItem(weather = weather, isCurrent = true, onClick = {
                         onWeatherClick(weather)
                     })
-                    Spacer(modifier = Modifier.height(50.dp))
+                    Spacer(modifier = Modifier.height(30.dp))
                 }
             }
 
@@ -87,7 +88,8 @@ fun HomeScreen(
                         color = MaterialTheme.colors.onBackground,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .padding(top = 20.dp),
                         maxLines = 1,
                     )
                 }

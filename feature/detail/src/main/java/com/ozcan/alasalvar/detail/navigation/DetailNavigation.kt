@@ -14,7 +14,7 @@ fun NavController.navigateToDetail(cityId: Int) {
 
 fun NavGraphBuilder.detailScreen(
     onBackClick: () -> Unit,
-    onAddFavoriteClick: (city: City) -> Unit,
+    onAddFavoriteClick: () -> Unit,
 ) {
     composable(
         route = "$detailNavigationRoute/{$cityIdArg}",

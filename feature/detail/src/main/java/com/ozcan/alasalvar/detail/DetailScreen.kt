@@ -10,9 +10,7 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.LocationOn
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +23,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
@@ -47,7 +44,7 @@ fun DetailScreen(
     cityId: Int,
     viewModel: DetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
-    onAddFavoriteClick: (city: City) -> Unit,
+    onAddFavoriteClick: () -> Unit,
 ) {
 
     LaunchedEffect(Unit) {
@@ -69,7 +66,10 @@ fun DetailScreen(
                     weatherDetail = uiState.data,
                     lazyScrollState = scrollState,
                     onBackClick = onBackClick,
-                    onAddFavoriteClick = onAddFavoriteClick
+                    onFavoriteClick = {
+                        viewModel.onFavoriteClick(city = uiState.data.city)
+                        onAddFavoriteClick()
+                    }
                 )
             }
         ) {
@@ -109,7 +109,7 @@ fun HeaderContent(
     modifier: Modifier = Modifier,
     lazyScrollState: LazyListState,
     onBackClick: () -> Unit,
-    onAddFavoriteClick: (city: City) -> Unit,
+    onFavoriteClick: (city: City) -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -162,7 +162,7 @@ fun HeaderContent(
                     .layoutId("header"),
                 city = weatherDetail.city!!,
                 onBackClick = onBackClick,
-                onAddFavoriteClick = onAddFavoriteClick
+                onFavoriteClick = onFavoriteClick
             )
 
             GlideImage(
@@ -230,56 +230,44 @@ internal fun Header(
     modifier: Modifier = Modifier,
     city: City,
     onBackClick: () -> Unit,
-    onAddFavoriteClick: (city: City) -> Unit,
+    onFavoriteClick: (city: City) -> Unit,
 ) {
-    ConstraintLayout(modifier = modifier) {
-        val (startIcon, cityText, endIcon) = createRefs()
+    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
+//        val (startIcon, cityText, endIcon) = createRefs()
 
-        if (city.isFavorite) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowBack,
-                tint = Color.White,
-                contentDescription = "back Icon",
-                modifier = Modifier
-                    .constrainAs(startIcon) {
-                        start.linkTo(parent.start)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    }
-                    .clickable {
-                        onBackClick()
-                    }
-            )
-        } else {
-            Text(
-                text = "Cancel",
-                fontSize = 15.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier
-                    .constrainAs(startIcon) {
-                        start.linkTo(parent.start)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    }
-                    .clickable {
-                        onBackClick()
-                    },
-                maxLines = 1,
-            )
+        Box() {
+            if (city.isFavorite) {
+                Icon(
+                    imageVector = Icons.Rounded.ArrowBack,
+                    tint = Color.White,
+                    contentDescription = "back Icon",
+                    modifier = Modifier
+                        .clickable {
+                            onBackClick()
+                        }
+                )
+            } else {
+                Text(
+                    text = "Cancel",
+                    fontSize = 15.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier
+                        .clickable {
+                            onBackClick()
+                        },
+                    maxLines = 1,
+                )
+            }
         }
+
+
 
 
 
         Row(
             modifier = Modifier
-                .width(IntrinsicSize.Max)
-                .constrainAs(cityText) {
-                    start.linkTo(startIcon.end)
-                    end.linkTo(endIcon.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                },
+                .width(IntrinsicSize.Max),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
@@ -302,36 +290,33 @@ internal fun Header(
 
 
 
-        if (city.isFavorite) {
-            Icon(
-                imageVector = Icons.Rounded.Info,
-                tint = Color.White,
-                contentDescription = "back Icon",
-                modifier = Modifier
-                    .constrainAs(endIcon) {
-                        end.linkTo(parent.end)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    }
-            )
-        } else {
-            Text(
-                text = "Add",
-                fontSize = 15.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier
-                    .constrainAs(endIcon) {
-                        end.linkTo(parent.end)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    }
-                    .clickable {
-                        onAddFavoriteClick(city)
-                    },
-                maxLines = 1,
-            )
+        Box() {
+            if (city.isFavorite) {
+                if (!city.isCurrentLocation)
+                    Icon(
+                        imageVector = Icons.Rounded.Favorite,
+                        tint = Color.White,
+                        contentDescription = "back Icon",
+                        modifier = Modifier .clickable {
+                            onFavoriteClick(city)
+                        },
+
+                    )
+            } else {
+                Text(
+                    text = "Add",
+                    fontSize = 15.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier
+                        .clickable {
+                            onFavoriteClick(city)
+                        },
+                    maxLines = 1,
+                )
+            }
         }
+
 
     }
 }
