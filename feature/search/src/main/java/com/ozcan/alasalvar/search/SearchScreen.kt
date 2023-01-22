@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.AppSearchView
+import com.ozcan.alasalvar.designsystem.theme.component.bounceClick
 import com.ozcan.alasalvar.model.data.City
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -55,7 +56,8 @@ fun SearchScreen(
                 Text(
                     text = city.name + " ," + city.country,
                     color = MaterialTheme.colors.secondary,
-                    fontSize = 15.sp
+                    fontSize = 15.sp,
+                    modifier = Modifier.bounceClick { onCityClicked(city) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
 

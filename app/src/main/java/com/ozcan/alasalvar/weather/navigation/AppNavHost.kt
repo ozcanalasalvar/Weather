@@ -38,7 +38,9 @@ fun AppNavHost(
 
         searchScreen(onCancelClick = {
             navController.popBackStack()
-        }, onCityClicked = {})
+        }, onCityClicked = { city ->
+            navController.navigateToDetail(cityId = city.id)
+        })
 
     }
 
