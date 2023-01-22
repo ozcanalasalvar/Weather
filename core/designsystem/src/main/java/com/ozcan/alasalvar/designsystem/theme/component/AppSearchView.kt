@@ -37,7 +37,7 @@ fun AppSearchView(
 
     Row(
         modifier = modifier
-            .fillMaxWidth(if (query.isEmpty()) 1.0f else 0.8f)
+            .fillMaxWidth()
             .background(
                 color = MaterialTheme.colors.surface,
                 shape = RoundedCornerShape(20.dp)

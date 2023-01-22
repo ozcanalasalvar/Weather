@@ -84,13 +84,16 @@ fun DetailScreen(
                 item {
                     Box(modifier = Modifier.height(20.dp))
                 }
+                item {
+                    Box(modifier = Modifier.height(20.dp))
+                }
 
                 itemsIndexed(uiState.data.dailyWeather) { _, daily ->
                     DailyWeatherItem(daily)
                 }
 
-                itemsIndexed(uiState.data.dailyWeather) { _, daily ->
-                    DailyWeatherItem(daily)
+                if (uiState.data.dailyWeather.size < 10) {
+                    item { Box(modifier = Modifier.height((((10 - uiState.data.dailyWeather.size)) * 40).dp)) }
                 }
 
             }
@@ -297,11 +300,11 @@ internal fun Header(
                         imageVector = Icons.Rounded.Favorite,
                         tint = Color.White,
                         contentDescription = "back Icon",
-                        modifier = Modifier .clickable {
+                        modifier = Modifier.clickable {
                             onFavoriteClick(city)
                         },
 
-                    )
+                        )
             } else {
                 Text(
                     text = "Add",

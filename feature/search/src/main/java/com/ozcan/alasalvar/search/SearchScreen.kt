@@ -76,7 +76,7 @@ fun SearchField(
     label: String
 ) {
 
-    var query: String by rememberSaveable { mutableStateOf("") }
+//    var query: String by rememberSaveable { mutableStateOf("") }
 
     Row(
         modifier = modifier
@@ -88,42 +88,22 @@ fun SearchField(
 
         AppSearchView(
             onTextChanged = {
-                query = it
                 onTextChanged(it)
             },
-            label = label
+            label = label,
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
 
-        AnimatedVisibility(
-            visible = !query.isEmpty(),
-            enter = slideInHorizontally(
-                initialOffsetX = { 300 },
-                animationSpec = tween(
-                    durationMillis = 250,
-                    easing = LinearEasing // interpolator
-                )
-            ),
-            exit = slideOutHorizontally(
-                targetOffsetX = { 300 },
-                animationSpec = tween(
-                    durationMillis = 250,
-                    easing = LinearEasing
-                )
-            )
-        ) {
-            Text(
-                text = "Cancel",
-                fontSize = 15.sp,
-                color = MaterialTheme.colors.secondary,
-                modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .fillMaxWidth()
-                    .clickable { onCancelClick() },
-                textAlign = TextAlign.End,
-            )
-        }
-
-
+        Text(
+            text = "Cancel",
+            fontSize = 15.sp,
+            color = MaterialTheme.colors.secondary,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .fillMaxWidth()
+                .clickable { onCancelClick() },
+            textAlign = TextAlign.End,
+        )
     }
 
 }
