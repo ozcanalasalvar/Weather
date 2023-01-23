@@ -39,6 +39,6 @@ You need to supply API / client keys for the service the app uses.
 Once you obtain the key, you can set them in your `~/local.properties`:
 
 ```
-# Get this from TMDb
+# Get this from OpenWeather
 API_KEY=<insert>
 ```
