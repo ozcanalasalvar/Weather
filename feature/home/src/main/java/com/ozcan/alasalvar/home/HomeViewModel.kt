@@ -13,9 +13,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 data class HomeUiState(
-    val isLoading: Boolean = true,
-    val favorites: List<Weather>? = null,
-    val error: String? = null
+    val isLoading: Boolean = true, val favorites: List<Weather>? = null, val error: String? = null
 )
 
 data class CurrentLocationUiState(
@@ -45,53 +43,49 @@ class HomeViewModel @Inject constructor(
 
     private fun weatherUiState(): Flow<HomeUiState> {
 
-        return cityRepository.getFavoriteCities()
-            .distinctUntilChanged { old, new ->
-                old.size == new.size
-            }
-            .map {
+        return cityRepository.getFavoriteCities().distinctUntilChanged { old, new ->
+            old.size == new.size
+        }.map {
 
-                when (val result = getWeatherListUseCase.invoke(it)) {
-                    is Result.Error -> {
+            when (val result = getWeatherListUseCase.invoke(it)) {
+                is Result.Error -> {
 
-                        HomeUiState(
-                            isLoading = true,
-                            favorites = null,
-                            error = result.exception.toString()
-                        )
+                    HomeUiState(
+                        isLoading = true, favorites = null, error = result.exception.toString()
+                    )
 
-                    }
-                    Result.Loading -> {
-                        HomeUiState(isLoading = true, favorites = null, error = null)
-                    }
-                    is Result.Success -> {
-                        HomeUiState(
-                            isLoading = false,
-                            favorites = result.data,
-                            error = null
-                        )
+                }
 
-                    }
+                Result.Loading -> {
+                    HomeUiState(isLoading = true, favorites = null, error = null)
+                }
+
+                is Result.Success -> {
+                    HomeUiState(
+                        isLoading = false, favorites = result.data, error = null
+                    )
+
                 }
             }
+        }
 
     }
 
     private fun currentUiState(): Flow<CurrentLocationUiState> {
 
-        return locationTracker.getCurrentLocation()
-            .distinctUntilChanged { old, new ->
-                old?.latitude == new?.latitude && old?.longitude == new?.longitude
-            }.map {
-                when (val result = getCurrentWeatherUseCase.invoke(it!!)) {
-                    is Result.Success -> {
-                        CurrentLocationUiState(current = result.data)
-                    }
-                    else -> {
-                        CurrentLocationUiState(current = null)
-                    }
+        return locationTracker.getCurrentLocation().distinctUntilChanged { old, new ->
+            old?.latitude == new?.latitude && old?.longitude == new?.longitude
+        }.map { location ->
+            when (val result = location?.let { getCurrentWeatherUseCase.invoke(it) }) {
+                is Result.Success -> {
+                    CurrentLocationUiState(current = result.data)
+                }
+
+                else -> {
+                    CurrentLocationUiState(current = null)
                 }
             }
+        }
 
     }
 
