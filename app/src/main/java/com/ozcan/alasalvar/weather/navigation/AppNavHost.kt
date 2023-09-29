@@ -34,13 +34,6 @@ fun AppNavHost(
         detailScreen(
             onBackClick = {
                 navController.popBackStack()
-            },
-            onAddFavoriteClick = {
-                navController.navigateToHome {
-                    popUpTo(homeNavigationRoute) {
-                        inclusive = true
-                    }
-                }
             })
 
 

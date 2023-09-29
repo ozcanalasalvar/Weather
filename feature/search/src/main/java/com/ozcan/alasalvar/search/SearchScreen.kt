@@ -1,27 +1,24 @@
 package com.ozcan.alasalvar.search
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ozcan.alasalvar.designsystem.theme.component.AppSearchView
 import com.ozcan.alasalvar.designsystem.theme.component.bounceClick
 import com.ozcan.alasalvar.model.data.City
+import com.ozcan.alasalvar.search.component.SearchField
+import weather.feature.search.R
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -33,6 +30,19 @@ fun SearchScreen(
 
     val uiState: SearchUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    SearchContent(uiState, onCancelClick, onCityClicked) {
+        viewModel.onSearch(it)
+    }
+}
+
+
+@Composable
+fun SearchContent(
+    uiState: SearchUiState,
+    onCancelClick: () -> Unit,
+    onCityClicked: (City) -> Unit,
+    onTextChanged: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,9 +51,9 @@ fun SearchScreen(
     ) {
 
         SearchField(
-            onTextChanged = viewModel::onSearch,
+            onTextChanged = onTextChanged,
             onCancelClick = onCancelClick,
-            label = "Search for a city" //TODO stringResource(id = R.string.search_city)
+            hint = stringResource(id = R.string.search_city)
         )
 
         LazyColumn(
@@ -53,12 +63,10 @@ fun SearchScreen(
         ) {
             itemsIndexed(uiState.results) { _, city ->
                 Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = city.name + " ," + city.country,
+                Text(text = city.name + " ," + city.country,
                     color = MaterialTheme.colors.secondary,
                     fontSize = 15.sp,
-                    modifier = Modifier.bounceClick { onCityClicked(city) }
-                )
+                    modifier = Modifier.bounceClick { onCityClicked(city) })
                 Spacer(modifier = Modifier.height(10.dp))
 
             }
@@ -67,43 +75,14 @@ fun SearchScreen(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
+
+@Preview
 @Composable
-fun SearchField(
-    modifier: Modifier = Modifier,
-    onTextChanged: (String) -> Unit,
-    onCancelClick: () -> Unit,
-    label: String
-) {
-
-//    var query: String by rememberSaveable { mutableStateOf("") }
-
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(50.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-
-        AppSearchView(
-            onTextChanged = {
-                onTextChanged(it)
-            },
-            label = label,
-            modifier = Modifier.fillMaxWidth(0.8f)
-        )
-
-        Text(
-            text = "Cancel",
-            fontSize = 15.sp,
-            color = MaterialTheme.colors.secondary,
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .fillMaxWidth()
-                .clickable { onCancelClick() },
-            textAlign = TextAlign.End,
-        )
-    }
-
+fun SearchContentPreview() {
+    SearchContent(
+        uiState = SearchUiState(),
+        onCancelClick = {},
+        onCityClicked = {},
+        onTextChanged = {},
+    )
 }
