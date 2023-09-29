@@ -8,13 +8,12 @@ import android.location.LocationManager
 import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 
-@ExperimentalCoroutinesApi
+
 class DefaultLocationTracker @Inject constructor(
     private val application: Application
 ) : LocationTracker {
@@ -52,13 +51,13 @@ class DefaultLocationTracker @Inject constructor(
                 }
             }
         }
-        locationClient?.requestLocationUpdates(mLocationRequest, callback, Looper.getMainLooper())
-            ?.addOnFailureListener { e ->
+        locationClient.requestLocationUpdates(mLocationRequest, callback, Looper.getMainLooper())
+            .addOnFailureListener { e ->
                 //close(e) // in case of exception, close the Flow
             }
         // clean up when Flow collection ends
         awaitClose {
-            locationClient?.removeLocationUpdates(callback)
+            locationClient.removeLocationUpdates(callback)
         }
     }
 }

@@ -10,6 +10,7 @@ import com.ozcan.alasalvar.domain.GetWeatherListUseCase
 import com.ozcan.alasalvar.model.data.Weather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class HomeUiState(
@@ -35,11 +36,10 @@ class HomeViewModel @Inject constructor(
         initialValue = HomeUiState()
     )
 
-    val locationUiState: StateFlow<CurrentLocationUiState> = currentUiState().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = CurrentLocationUiState()
-    )
+    private var _locationUiState: MutableStateFlow<CurrentLocationUiState> =
+        MutableStateFlow(CurrentLocationUiState())
+
+    var locationUiState: StateFlow<CurrentLocationUiState> = _locationUiState
 
     private fun weatherUiState(): Flow<HomeUiState> {
 
@@ -71,23 +71,20 @@ class HomeViewModel @Inject constructor(
 
     }
 
-    private fun currentUiState(): Flow<CurrentLocationUiState> {
+    fun startLocationTrack() = viewModelScope.launch {
+        locationTracker.getCurrentLocation().distinctUntilChanged { old, new ->
+            old?.latitude == new?.latitude && old?.longitude == new?.longitude
+        }.collectLatest { location ->
+            when (val result = location?.let { getCurrentWeatherUseCase.invoke(it) }) {
+                is Result.Success -> {
+                    _locationUiState.value = CurrentLocationUiState(current = result.data)
+                }
 
-        return locationTracker.getCurrentLocation()
-            .distinctUntilChanged { old, new ->
-                old?.latitude == new?.latitude && old?.longitude == new?.longitude
-            }
-            .map { location ->
-                when (val result = location?.let { getCurrentWeatherUseCase.invoke(it) }) {
-                    is Result.Success -> {
-                        CurrentLocationUiState(current = result.data)
-                    }
-
-                    else -> {
-                        CurrentLocationUiState(current = null)
-                    }
+                else -> {
+                    _locationUiState.value = CurrentLocationUiState(current = null)
                 }
             }
+        }
 
     }
 

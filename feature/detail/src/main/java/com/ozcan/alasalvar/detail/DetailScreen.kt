@@ -115,12 +115,10 @@ fun HeaderContent(
 
 
     val progress by animateFloatAsState(
-        targetValue = if (firstVisibleIndex == 0) 0f else 1f,
-        tween(500)
+        targetValue = if (firstVisibleIndex == 0) 0f else 1f, tween(500)
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp,
-        tween(500)
+        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp, tween(500)
     )
 
 
@@ -206,7 +204,6 @@ fun HeaderContent(
             ) {
                 itemsIndexed(weatherDetail.hourlyWeather) { _, hourly ->
                     HourlyWeatherItem(hourly = hourly, modifier = Modifier.padding(top = 30.dp))
-
                 }
             }
 
@@ -230,7 +227,7 @@ internal fun Header(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 5.dp, end = 5.dp)
+            .padding(start = 10.dp, end = 10.dp)
     ) {
 
         Box(
