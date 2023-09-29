@@ -53,6 +53,7 @@ fun DetailScreen(
     val uiState = viewModel.uiState
 
     val scrollState = rememberLazyListState()
+    val firstVisibleIndex = remember { derivedStateOf { scrollState.firstVisibleItemIndex } }
 
     if (uiState.isLoading) {
         Loading()
@@ -61,7 +62,7 @@ fun DetailScreen(
     if (uiState.data != null) {
         Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
             HeaderContent(weatherDetail = uiState.data,
-                lazyScrollState = scrollState,
+                firstVisibleIndex = firstVisibleIndex.value,
                 onBackClick = onBackClick,
                 onFavoriteClick = {
                     viewModel.onFavoriteClick(city = uiState.data.city)
@@ -103,7 +104,7 @@ fun DetailScreen(
 fun HeaderContent(
     weatherDetail: WeatherDetail,
     modifier: Modifier = Modifier,
-    lazyScrollState: LazyListState,
+    firstVisibleIndex: Int,
     onBackClick: () -> Unit,
     onFavoriteClick: (city: City) -> Unit,
 ) {
@@ -115,11 +116,11 @@ fun HeaderContent(
 
 
     val progress by animateFloatAsState(
-        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 0f else 1f,//if (lazyScrollState.firstVisibleItemIndex in 0..4) 0f else 1f
+        targetValue = if (firstVisibleIndex == 0) 0f else 1f,//if (lazyScrollState.firstVisibleItemIndex in 0..4) 0f else 1f
         tween(500)
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 590.dp else 280.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
+        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
         tween(500)
     )
 
