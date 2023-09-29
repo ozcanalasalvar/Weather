@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorites">Favorites</string>
+    <string name="current_location">Current Location</string>
+    <string name="hello">Hello</string>
+    <string name="discover_the_weather">Discover the weather</string>
+</resources>

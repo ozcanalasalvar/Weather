@@ -1,8 +1,6 @@
 package com.ozcan.alasalvar.search
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -10,9 +8,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,6 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.AppSearchView
 import com.ozcan.alasalvar.designsystem.theme.component.bounceClick
 import com.ozcan.alasalvar.model.data.City
+import weather.feature.search.R
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -43,7 +42,7 @@ fun SearchScreen(
         SearchField(
             onTextChanged = viewModel::onSearch,
             onCancelClick = onCancelClick,
-            label = "Search for a city" //TODO stringResource(id = R.string.search_city)
+            hint =stringResource(id = R.string.search_city)
         )
 
         LazyColumn(
@@ -73,10 +72,8 @@ fun SearchField(
     modifier: Modifier = Modifier,
     onTextChanged: (String) -> Unit,
     onCancelClick: () -> Unit,
-    label: String
+    hint: String
 ) {
-
-//    var query: String by rememberSaveable { mutableStateOf("") }
 
     Row(
         modifier = modifier
@@ -90,12 +87,12 @@ fun SearchField(
             onTextChanged = {
                 onTextChanged(it)
             },
-            label = label,
+            label = hint,
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
         Text(
-            text = "Cancel",
+            text = stringResource(id = R.string.cancel),
             fontSize = 15.sp,
             color = MaterialTheme.colors.secondary,
             modifier = Modifier

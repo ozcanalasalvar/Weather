@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -58,21 +59,15 @@ fun DetailScreen(
     }
 
     if (uiState.data != null) {
-        Scaffold(
-            modifier = Modifier
-                .fillMaxSize(),
-            topBar = {
-                HeaderContent(
-                    weatherDetail = uiState.data,
-                    lazyScrollState = scrollState,
-                    onBackClick = onBackClick,
-                    onFavoriteClick = {
-                        viewModel.onFavoriteClick(city = uiState.data.city)
-                        onAddFavoriteClick()
-                    }
-                )
-            }
-        ) {
+        Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+            HeaderContent(weatherDetail = uiState.data,
+                lazyScrollState = scrollState,
+                onBackClick = onBackClick,
+                onFavoriteClick = {
+                    viewModel.onFavoriteClick(city = uiState.data.city)
+                    onAddFavoriteClick()
+                })
+        }) {
 
             LazyColumn(
                 modifier = Modifier
@@ -126,7 +121,7 @@ fun HeaderContent(
         tween(500)
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 570.dp else 280.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
+        targetValue = if (lazyScrollState.firstVisibleItemIndex == 0) 590.dp else 280.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
         tween(500)
     )
 
@@ -219,8 +214,7 @@ fun HeaderContent(
 
 
             Info(
-                weatherDetail = weatherDetail,
-                modifier = Modifier
+                weatherDetail = weatherDetail, modifier = Modifier
                     .layoutId("info")
                     .fillMaxWidth()
             )
@@ -235,87 +229,64 @@ internal fun Header(
     onBackClick: () -> Unit,
     onFavoriteClick: (city: City) -> Unit,
 ) {
-    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
-//        val (startIcon, cityText, endIcon) = createRefs()
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start = 5.dp, end = 5.dp)
+    ) {
 
-        Box() {
-            if (city.isFavorite) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .clickable {
+                    onBackClick()
+                }, contentAlignment = Alignment.CenterStart
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.ArrowBack,
+                tint = Color.White,
+                contentDescription = "back Icon",
+            )
+        }
+
+
+        Box(modifier = Modifier.weight(5f), contentAlignment = Alignment.Center) {
+            Row(
+                modifier = Modifier.width(IntrinsicSize.Max),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
                 Icon(
-                    imageVector = Icons.Rounded.ArrowBack,
+                    imageVector = Icons.Rounded.LocationOn,
                     tint = Color.White,
-                    contentDescription = "back Icon",
-                    modifier = Modifier
-                        .clickable {
-                            onBackClick()
-                        }
+                    contentDescription = "location Icon",
                 )
-            } else {
+
                 Text(
-                    text = "Cancel",
-                    fontSize = 15.sp,
+                    text = city.name,
+                    fontSize = 22.sp,
                     color = Color.White,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier
-                        .clickable {
-                            onBackClick()
-                        },
+                        .wrapContentSize()
+                        .padding(start = 3.dp),
                     maxLines = 1,
                 )
             }
         }
 
 
-
-
-
-        Row(
+        Box(
             modifier = Modifier
-                .width(IntrinsicSize.Max),
-            verticalAlignment = Alignment.CenterVertically,
+                .weight(1f)
+                .clickable {
+                    if (!city.isCurrentLocation) onFavoriteClick(city)
+                }, contentAlignment = Alignment.CenterEnd
         ) {
-            Icon(
-                imageVector = Icons.Rounded.LocationOn,
-                tint = Color.White,
-                contentDescription = "location Icon",
-            )
-
-            Text(
-                text = city.name,
-                fontSize = 22.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier
-                    .wrapContentSize()
-                    .padding(start = 3.dp),
-                maxLines = 1,
-            )
-        }
-
-
-
-        Box() {
-            if (city.isFavorite) {
-                if (!city.isCurrentLocation)
-                    Icon(
-                        imageVector = Icons.Rounded.Favorite,
-                        tint = Color.White,
-                        contentDescription = "back Icon",
-                        modifier = Modifier.clickable {
-                            onFavoriteClick(city)
-                        },
-
-                        )
-            } else {
-                Text(
-                    text = "Add",
-                    fontSize = 15.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier
-                        .clickable {
-                            onFavoriteClick(city)
-                        },
-                    maxLines = 1,
+            if (!city.isCurrentLocation) {
+                Image(
+                    painter = painterResource(id = if (city.isFavorite) R.drawable.favorite else R.drawable.add_favorite),
+                    contentDescription = "back Icon",
                 )
             }
         }

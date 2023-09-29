@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,6 +35,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.ozcan.alasalvar.designsystem.theme.component.bounceClick
 import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.model.data.Weather
+import weather.feature.home.R
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -83,7 +85,7 @@ fun HomeScreen(
 
                 item {
                     Text(
-                        text = "Favorites",
+                        text = stringResource(id = R.string.favorites),
                         fontSize = 18.sp,
                         color = MaterialTheme.colors.onBackground,
                         fontWeight = FontWeight.Medium,
@@ -164,7 +166,7 @@ fun WeatherListItem(
             )
 
             Text(
-                text = if (isCurrent) "Current Location" else weather.city.name,
+                text = if (isCurrent) stringResource(id = R.string.current_location) else weather.city.name,
                 fontSize = 18.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
@@ -240,7 +242,7 @@ fun Header(
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Column {
             Text(
-                text = "Hello",
+                text = stringResource(id = R.string.hello),
                 fontSize = 25.sp,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Bold,
@@ -248,7 +250,7 @@ fun Header(
                 maxLines = 1,
             )
             Text(
-                text = "Discover the weather",
+                text = stringResource(id = R.string.discover_the_weather),
                 fontSize = 15.sp,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Medium,

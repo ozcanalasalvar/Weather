@@ -73,19 +73,21 @@ class HomeViewModel @Inject constructor(
 
     private fun currentUiState(): Flow<CurrentLocationUiState> {
 
-        return locationTracker.getCurrentLocation().distinctUntilChanged { old, new ->
-            old?.latitude == new?.latitude && old?.longitude == new?.longitude
-        }.map { location ->
-            when (val result = location?.let { getCurrentWeatherUseCase.invoke(it) }) {
-                is Result.Success -> {
-                    CurrentLocationUiState(current = result.data)
-                }
+        return locationTracker.getCurrentLocation()
+            .distinctUntilChanged { old, new ->
+                old?.latitude == new?.latitude && old?.longitude == new?.longitude
+            }
+            .map { location ->
+                when (val result = location?.let { getCurrentWeatherUseCase.invoke(it) }) {
+                    is Result.Success -> {
+                        CurrentLocationUiState(current = result.data)
+                    }
 
-                else -> {
-                    CurrentLocationUiState(current = null)
+                    else -> {
+                        CurrentLocationUiState(current = null)
+                    }
                 }
             }
-        }
 
     }
 
