@@ -1,6 +1,5 @@
 package com.ozcan.alasalvar.detail
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -53,34 +52,35 @@ fun DetailScreen(
     val uiState = viewModel.uiState
 
     val scrollState = rememberLazyListState()
-    val firstVisibleIndex = remember { derivedStateOf { scrollState.firstVisibleItemIndex } }
+    val firstVisibleIndex = remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
 
     if (uiState.isLoading) {
         Loading()
     }
 
     if (uiState.data != null) {
-        Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-            HeaderContent(weatherDetail = uiState.data,
-                firstVisibleIndex = firstVisibleIndex.value,
-                onBackClick = onBackClick,
-                onFavoriteClick = {
-                    viewModel.onFavoriteClick(city = uiState.data.city)
-                })
-        }) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                HeaderContent(
+                    weatherDetail = uiState.data,
+                    firstVisibleIndex = firstVisibleIndex.value,
+                    onBackClick = onBackClick,
+                    onFavoriteClick = {
+                        viewModel.onFavoriteClick(city = uiState.data.city)
+                    },
+                )
+            },
+        ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(it)
-                    .background(MaterialTheme.colors.background), state = scrollState
+                    .background(MaterialTheme.colors.background),
+                state = scrollState,
+                contentPadding = PaddingValues(top = 40.dp)
             ) {
 
-                item {
-                    Box(modifier = Modifier.height(20.dp))
-                }
-                item {
-                    Box(modifier = Modifier.height(20.dp))
-                }
 
                 itemsIndexed(uiState.data.dailyWeather) { _, daily ->
                     DailyWeatherItem(daily)
@@ -98,7 +98,6 @@ fun DetailScreen(
 }
 
 
-@SuppressLint("FrequentlyChangedStateReadInComposition")
 @OptIn(ExperimentalMotionApi::class, ExperimentalGlideComposeApi::class)
 @Composable
 fun HeaderContent(
@@ -116,11 +115,11 @@ fun HeaderContent(
 
 
     val progress by animateFloatAsState(
-        targetValue = if (firstVisibleIndex == 0) 0f else 1f,//if (lazyScrollState.firstVisibleItemIndex in 0..4) 0f else 1f
+        targetValue = if (firstVisibleIndex == 0) 0f else 1f,
         tween(500)
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp,// if (lazyScrollState.firstVisibleItemIndex in 0..4) 300.dp else 56.dp
+        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp,
         tween(500)
     )
 
@@ -237,7 +236,7 @@ internal fun Header(
         Box(
             modifier = Modifier
                 .weight(1f)
-                .clickable {
+                .bounceClick {
                     onBackClick()
                 }, contentAlignment = Alignment.CenterStart
         ) {
