@@ -72,6 +72,7 @@ class DetailViewModel @Inject constructor(
         city?.let {
             val _city = city.copy(isFavorite = !it.isFavorite)
             cityRepository.updateStation(_city)
+            getDetail(cityId = city.id)
         }
     }
 }

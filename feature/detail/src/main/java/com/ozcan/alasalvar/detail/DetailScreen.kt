@@ -30,6 +30,7 @@ import androidx.constraintlayout.compose.MotionScene
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.ozcan.alasalvar.designsystem.theme.component.bounceClick
 import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.detail.component.DailyWeatherItem
 import com.ozcan.alasalvar.detail.component.HourlyWeatherItem
@@ -39,13 +40,11 @@ import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(
     cityId: Int,
     viewModel: DetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
-    onAddFavoriteClick: () -> Unit,
 ) {
 
     LaunchedEffect(Unit) {
@@ -65,15 +64,13 @@ fun DetailScreen(
                 onBackClick = onBackClick,
                 onFavoriteClick = {
                     viewModel.onFavoriteClick(city = uiState.data.city)
-                    onAddFavoriteClick()
                 })
         }) {
-
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colors.background),
-                state = scrollState
+                    .padding(it)
+                    .background(MaterialTheme.colors.background), state = scrollState
             ) {
 
                 item {
@@ -279,7 +276,7 @@ internal fun Header(
         Box(
             modifier = Modifier
                 .weight(1f)
-                .clickable {
+                .bounceClick {
                     if (!city.isCurrentLocation) onFavoriteClick(city)
                 }, contentAlignment = Alignment.CenterEnd
         ) {
