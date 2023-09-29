@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ozcan.alasalvar.designsystem.theme.component.Loading
 import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.home.component.HomeToolbar
 import com.ozcan.alasalvar.home.component.WeatherListItem
@@ -67,6 +68,11 @@ fun HomeScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val locationUiState by viewModel.locationUiState.collectAsStateWithLifecycle()
+
+
+    if (uiState.isLoading) {
+        Loading()
+    }
 
     HomeContent(
         uiState = uiState,
