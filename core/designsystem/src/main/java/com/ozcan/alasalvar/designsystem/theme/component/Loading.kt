@@ -1,34 +1,42 @@
-package com.ozcan.alasalvar.detail.component
+package com.ozcan.alasalvar.designsystem.theme.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun Loading() {
+fun Loading(modifier: Modifier = Modifier) {
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-    ) {
-
-
-        CircularProgressIndicator(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(50.dp),
-            color = MaterialTheme.colors.secondary
+    Dialog(
+        onDismissRequest = { }, properties = DialogProperties(
+            dismissOnBackPress = false,
+            dismissOnClickOutside = false,
+            usePlatformDefaultWidth = false
         )
+    ) {
+        Box(
+            modifier = modifier.background(Color.Transparent)
+        ) {
 
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(50.dp),
+                color = MaterialTheme.colors.secondary
+            )
+
+        }
     }
+
 }

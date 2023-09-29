@@ -35,7 +35,7 @@ import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.detail.component.DailyWeatherItem
 import com.ozcan.alasalvar.detail.component.HourlyWeatherItem
 import com.ozcan.alasalvar.detail.component.Info
-import com.ozcan.alasalvar.detail.component.Loading
+import com.ozcan.alasalvar.designsystem.theme.component.Loading
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
@@ -53,6 +53,7 @@ fun DetailScreen(
     val uiState = viewModel.uiState
 
     val scrollState = rememberLazyListState()
+
     if (uiState.isLoading) {
         Loading()
     }
