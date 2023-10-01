@@ -19,7 +19,7 @@ class GetCurrentWeatherUseCase @Inject constructor(
             )
 
             val city = response.city.copy(isFavorite = true, isCurrentLocation = true)
-            cityRepository.updateStation(city)
+            cityRepository.updateCity(city)
 
             return Result.Success(response)
         } catch (e: Exception) {

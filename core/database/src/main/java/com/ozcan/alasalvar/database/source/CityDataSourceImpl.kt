@@ -58,7 +58,7 @@ class CityDataSourceImpl @Inject constructor(
     }
 
 
-    override suspend fun updateStation(city: City) {
+    override suspend fun updateCity(city: City) {
         dao.updateStation(city.asEntity())
     }
 

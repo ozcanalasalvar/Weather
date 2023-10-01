@@ -15,4 +15,6 @@ dependencies {
     implementation(project(":core:database"))
 
     implementation(libs.android.gms.play.services.location)
+
+    testImplementation(project(":core:testing"))
 }

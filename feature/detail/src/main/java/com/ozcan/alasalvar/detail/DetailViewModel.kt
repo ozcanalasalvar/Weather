@@ -70,7 +70,7 @@ class DetailViewModel @Inject constructor(
     fun onFavoriteClick(city: City?) = viewModelScope.launch {
         city?.let {
             val _city = city.copy(isFavorite = !it.isFavorite)
-            cityRepository.updateStation(_city)
+            cityRepository.updateCity(_city)
             getDetail(cityId = city.id)
         }
     }

@@ -10,8 +10,8 @@ val listOfCityTestData: List<City> = mutableListOf(
         lat = 12453.0,
         lon = 12453.0,
         name = "City1",
-        isFavorite = false,
-        isCurrentLocation = false,
+        isFavorite = true,
+        isCurrentLocation = true,
     ),
     City(
         id = 2,

@@ -18,11 +18,11 @@ class CityRepositoryImpl @Inject constructor(
         return cityDataSource.getCities()
     }
 
-    override suspend fun updateStation(city: City) {
+    override suspend fun updateCity(city: City) {
         withContext(ioDispatcher) {
             if (city.isCurrentLocation)
                 cityDataSource.delete(city)
-            cityDataSource.updateStation(city)
+            cityDataSource.updateCity(city)
         }
     }
 
