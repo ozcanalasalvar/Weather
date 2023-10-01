@@ -5,12 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozcan.alasalvar.common.result.Result
 import com.ozcan.alasalvar.common.result.asResult
-import com.ozcan.alasalvar.data.CityRepository
+import com.ozcan.alasalvar.data.repository.CityRepository
 import com.ozcan.alasalvar.model.data.City
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

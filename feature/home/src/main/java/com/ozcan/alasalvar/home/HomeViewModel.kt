@@ -3,7 +3,7 @@ package com.ozcan.alasalvar.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozcan.alasalvar.common.result.Result
-import com.ozcan.alasalvar.data.CityRepository
+import com.ozcan.alasalvar.data.repository.CityRepository
 import com.ozcan.alasalvar.data.util.LocationTracker
 import com.ozcan.alasalvar.domain.GetCurrentWeatherUseCase
 import com.ozcan.alasalvar.domain.GetWeatherListUseCase

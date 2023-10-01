@@ -1,6 +1,6 @@
 package com.ozcanalasalvar.testing.repository
 
-import com.ozcan.alasalvar.data.CityRepository
+import com.ozcan.alasalvar.data.repository.CityRepository
 import com.ozcan.alasalvar.model.data.City
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow

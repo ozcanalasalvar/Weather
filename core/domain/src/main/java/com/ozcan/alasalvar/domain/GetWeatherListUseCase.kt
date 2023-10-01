@@ -3,7 +3,7 @@ package com.ozcan.alasalvar.domain
 import com.ozcan.alasalvar.common.dispatcher.AppDispatchers
 import com.ozcan.alasalvar.common.dispatcher.Dispatcher
 import com.ozcan.alasalvar.common.result.Result
-import com.ozcan.alasalvar.data.WeatherRepository
+import com.ozcan.alasalvar.data.repository.WeatherRepository
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
 import kotlinx.coroutines.*

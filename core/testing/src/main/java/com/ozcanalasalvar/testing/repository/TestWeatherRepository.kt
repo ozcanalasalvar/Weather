@@ -1,6 +1,6 @@
 package com.ozcanalasalvar.testing.repository
 
-import com.ozcan.alasalvar.data.WeatherRepository
+import com.ozcan.alasalvar.data.repository.WeatherRepository
 import com.ozcan.alasalvar.model.data.Weather
 import com.ozcan.alasalvar.model.data.WeatherDetail
 

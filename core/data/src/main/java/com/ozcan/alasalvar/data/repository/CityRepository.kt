@@ -1,4 +1,4 @@
-package com.ozcan.alasalvar.data
+package com.ozcan.alasalvar.data.repository
 
 import com.ozcan.alasalvar.model.data.City
 import kotlinx.coroutines.flow.Flow

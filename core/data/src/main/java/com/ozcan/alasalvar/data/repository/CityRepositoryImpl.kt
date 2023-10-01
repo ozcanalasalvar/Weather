@@ -1,8 +1,7 @@
-package com.ozcan.alasalvar.data.source
+package com.ozcan.alasalvar.data.repository
 
 import com.ozcan.alasalvar.common.dispatcher.AppDispatchers
 import com.ozcan.alasalvar.common.dispatcher.Dispatcher
-import com.ozcan.alasalvar.data.CityRepository
 import com.ozcan.alasalvar.database.CityDataSource
 import com.ozcan.alasalvar.model.data.City
 import kotlinx.coroutines.CoroutineDispatcher

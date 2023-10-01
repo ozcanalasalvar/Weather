@@ -7,8 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozcan.alasalvar.common.result.Result
-import com.ozcan.alasalvar.data.CityRepository
-import com.ozcan.alasalvar.detail.navigation.detailNavigationRoute
+import com.ozcan.alasalvar.data.repository.CityRepository
 import com.ozcan.alasalvar.domain.GetWeatherDetailUseCase
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.WeatherDetail
