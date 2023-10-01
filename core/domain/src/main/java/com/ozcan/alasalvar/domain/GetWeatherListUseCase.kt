@@ -6,7 +6,6 @@ import com.ozcan.alasalvar.common.result.Result
 import com.ozcan.alasalvar.data.WeatherRepository
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
-import com.ozcan.alasalvar.network.model.asExternalModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 

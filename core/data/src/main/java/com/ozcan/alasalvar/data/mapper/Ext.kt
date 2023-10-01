@@ -1,4 +1,5 @@
-package com.ozcan.alasalvar.network.util
+package com.ozcan.alasalvar.data.mapper
+
 
 import java.text.SimpleDateFormat
 import java.util.*

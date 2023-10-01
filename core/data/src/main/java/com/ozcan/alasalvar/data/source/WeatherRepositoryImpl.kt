@@ -5,7 +5,6 @@ import com.ozcan.alasalvar.data.mapper.asExternalModel
 import com.ozcan.alasalvar.model.data.Weather
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import com.ozcan.alasalvar.network.WeatherDataSource
-import com.ozcan.alasalvar.network.model.asExternalModel
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(private val weatherDataSource: WeatherDataSource) :
