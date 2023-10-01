@@ -23,26 +23,26 @@ internal fun Project.configureAndroidCompose(
         }
 
         dependencies {
-            "implementation"(libs.findDependency("androidx-compose-ui-core").get())
-            "implementation"(libs.findDependency("androidx-compose-material").get())
-            "implementation"(libs.findDependency("androidx-compose-ui.tooling-preview").get())
-            "implementation"(libs.findDependency("androidx-compose-lifecycle-viewmodel").get())
-            "implementation"(libs.findDependency("androidx-lifecycle-runtimeCompose").get())
-            "implementation"(libs.findDependency("androidx-activity-compose").get())
+            "implementation"(libs.findLibrary("androidx-compose-ui-core").get())
+            "implementation"(libs.findLibrary("androidx-compose-material").get())
+            "implementation"(libs.findLibrary("androidx-compose-ui.tooling-preview").get())
+            "implementation"(libs.findLibrary("androidx-compose-lifecycle-viewmodel").get())
+            "implementation"(libs.findLibrary("androidx-lifecycle-runtimeCompose").get())
+            "implementation"(libs.findLibrary("androidx-activity-compose").get())
 
 
-            "debugImplementation"(libs.findDependency("androidx.compose.ui.tooling").get())
-            "implementation"(libs.findDependency("androidx.compose.ui.util").get())
+            "debugImplementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
+            "implementation"(libs.findLibrary("androidx.compose.ui.util").get())
 
             //ViewPager
-            "implementation"(libs.findDependency("com.google.accompanist.pager").get())
-            "implementation"(libs.findDependency("com.google.accompanist.pager.indicators").get())
+            "implementation"(libs.findLibrary("com.google.accompanist.pager").get())
+            "implementation"(libs.findLibrary("com.google.accompanist.pager.indicators").get())
 
             //Glide
-            "implementation"(libs.findDependency("glide.compose").get())
+            "implementation"(libs.findLibrary("glide.compose").get())
             //constraintlayout
-            "implementation"(libs.findDependency("androidx.constraintlayout.compose").get())
-            "implementation"(libs.findDependency("androidx.navigation.compose").get())
+            "implementation"(libs.findLibrary("androidx.constraintlayout.compose").get())
+            "implementation"(libs.findLibrary("androidx.navigation.compose").get())
 
         }
 
