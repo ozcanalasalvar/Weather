@@ -24,7 +24,7 @@ class GetCurrentWeatherUseCase @Inject constructor(
             val response = weatherRepository.getWeatherData(
                 lat = location.latitude,
                 lon = location.longitude
-            ).asExternalModel()
+            )
 
             val city = response.city.copy(isFavorite = true, isCurrentLocation = true)
             cityRepository.updateStation(city)

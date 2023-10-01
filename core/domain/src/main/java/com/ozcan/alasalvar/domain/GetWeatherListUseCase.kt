@@ -8,9 +8,6 @@ import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
 import com.ozcan.alasalvar.network.model.asExternalModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetWeatherListUseCase @Inject constructor(
@@ -25,7 +22,7 @@ class GetWeatherListUseCase @Inject constructor(
         withContext(ioDispatcher) {
             cities.forEach {
                 val weatherDto = async {
-                    weatherRepository.getWeatherData(cityName = it.name).asExternalModel(it)
+                    weatherRepository.getWeatherData(cityName = it.name)
                 }
                 deferredList.add(weatherDto)
             }

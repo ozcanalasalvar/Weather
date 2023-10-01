@@ -6,7 +6,6 @@ import com.ozcan.alasalvar.common.result.Result
 import com.ozcan.alasalvar.data.CityRepository
 import com.ozcan.alasalvar.data.WeatherRepository
 import com.ozcan.alasalvar.model.data.WeatherDetail
-import com.ozcan.alasalvar.network.model.asExternalModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,7 +22,7 @@ class GetWeatherDetailUseCase @Inject constructor(
             val city = cityRepository.getCity(cityId)
             val response = weatherRepository.getWeatherDetail(city.lat, city.lon)
             // throw Exception()
-            Result.Success(response.asExternalModel().copy(city = city))
+            Result.Success(response.copy(city = city))
         } catch (e: Exception) {
             Result.Error(e)
         }

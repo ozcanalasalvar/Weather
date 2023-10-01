@@ -20,17 +20,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.Loading
-import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.home.component.HomeToolbar
 import com.ozcan.alasalvar.home.component.WeatherListItem
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
 import weather.feature.home.R
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun HomeScreen(
     onSearchClick: () -> Unit,
@@ -175,7 +172,7 @@ fun HomeContentPreview() {
                     isFavorite = true,
                     isCurrentLocation = false,
                 ),
-                weatherIcon = null,
+                weatherIcon = "https://openweathermap.org/img/wn/03n@2x.png",
                 weatherStatus = "cloudy",
                 currentTemperature = "28C",
                 todayDate = "12/12/222",

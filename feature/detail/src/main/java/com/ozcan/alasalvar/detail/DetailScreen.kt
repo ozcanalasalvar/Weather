@@ -115,10 +115,10 @@ fun HeaderContent(
 
 
     val progress by animateFloatAsState(
-        targetValue = if (firstVisibleIndex == 0) 0f else 1f, tween(500)
+        targetValue = if (firstVisibleIndex == 0) 0f else 1f, tween(500), label = ""
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp, tween(500)
+        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp, tween(500), label = ""
     )
 
 

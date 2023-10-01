@@ -17,18 +17,3 @@ data class WeatherDetailDto(
     val timezone: String,
     val timezone_offset: Int
 )
-
-fun WeatherDetailDto.asExternalModel(): WeatherDetail {
-    return WeatherDetail(
-        city = null,
-        weatherIcon = current.weather[0].icon.asImageUrl(),
-        weatherStatus = current.weather[0].main,
-        currentTemperature = current.temp.asTemperature(),
-        todayDate = current.dt.asCurrentDate(),
-        wind = "${current.wind_speed} km/h",
-        humidity = "${current.humidity} %",
-        pressure = "${current.pressure} Pa",
-        hourlyWeather = hourly.map { value -> value.asExternalModel() },
-        dailyWeather = daily.map { value -> value.asExternalModel() },
-    )
-}

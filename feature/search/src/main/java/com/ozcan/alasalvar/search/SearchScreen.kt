@@ -13,14 +13,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.bounceClick
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.search.component.SearchField
 import weather.feature.search.R
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(
     onCancelClick: () -> Unit,
