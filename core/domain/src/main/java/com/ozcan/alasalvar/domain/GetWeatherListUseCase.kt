@@ -15,32 +15,35 @@ class GetWeatherListUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(cities: List<City>): Result<List<Weather>> {
-        val deferredList = mutableListOf<Deferred<Weather>>()
-        val list = mutableListOf<Weather>()
+        try {
+            val deferredList = mutableListOf<Deferred<Weather>>()
+            val list = mutableListOf<Weather>()
 
 
-        val result = withContext(ioDispatcher) {
-            cities.forEach {
-                val weatherDto = async {
-                    weatherRepository.getWeatherData(cityName = it.name)
+            val result = withContext(ioDispatcher) {
+                cities.forEach {
+                    val weatherDto = async {
+                        weatherRepository.getWeatherData(cityName = it.name)
+                    }
+                    deferredList.add(weatherDto)
                 }
-                deferredList.add(weatherDto)
-            }
-            try {
-                deferredList.mapNotNull { deferredResult ->
+                try {
+                    deferredList.mapNotNull { deferredResult ->
 
-                    deferredResult.await()
+                        deferredResult.await()
 
-                }.forEach {
-                    list.add(it)
+                    }.forEach {
+                        list.add(it)
+                    }
+
+                    return@withContext Result.Success(list)
+                } catch (exception: Exception) {
+                    return@withContext Result.Error(exception)
                 }
-
-                return@withContext Result.Success(list)
-            } catch (exception: Exception) {
-                return@withContext Result.Error(exception)
             }
+            return result
+        } catch (e: Exception) {
+            return Result.Error(e)
         }
-
-        return result
     }
 }
