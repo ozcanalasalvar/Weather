@@ -21,7 +21,7 @@ android {
     buildTypes {
         debug {
             isDebuggable = true
-            //applicationIdSuffix = ".debug"
+            applicationIdSuffix = ".debug"
         }
         release {
             isDebuggable = false
@@ -39,6 +39,12 @@ android {
     packagingOptions {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        }
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
         }
     }
 }
