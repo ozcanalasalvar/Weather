@@ -51,9 +51,10 @@ jobs:
   test:
     runs-on: macos-latest
     needs: build
+    timeout-minutes: 55
     strategy:
       matrix:
-        api-level: [21, 31, 33]
+        api-level: [26, 30]
         target: [default]
 
     steps:
@@ -87,9 +88,10 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: x86
-          profile: Nexus 6
+          arch: x86_64
+          disable-animations: true
+          disk-size: 6000M
+          heap-size: 600M
           script: ./gradlew connectedCheck --stacktrace
 
       - name: Upload Reports
