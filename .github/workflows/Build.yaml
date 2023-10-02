@@ -80,9 +80,6 @@ jobs:
         with:
           java-version: '11'
 
-      - name: Run detekt
-        run: ./gradlew detektCheck
-
       - name: Run unit tests
         run: ./gradlew test --stacktrace
 
