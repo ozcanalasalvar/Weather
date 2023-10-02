@@ -11,11 +11,11 @@ class GetCurrentWeatherUseCase @Inject constructor(
     private val cityRepository: CityRepository,
     private val weatherRepository: WeatherRepository,
 ) {
-    suspend operator fun invoke(location: Location): Result<Weather> {
+    suspend operator fun invoke(latitude:Double, longitude:Double): Result<Weather> {
         try {
             val response = weatherRepository.getWeatherData(
-                lat = location.latitude,
-                lon = location.longitude
+                lat = latitude,
+                lon = longitude
             )
 
             val city = response.city.copy(isFavorite = true, isCurrentLocation = true)

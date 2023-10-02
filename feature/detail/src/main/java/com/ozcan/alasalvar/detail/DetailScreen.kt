@@ -39,17 +39,29 @@ import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
 
+
 @Composable
-fun DetailScreen(
+fun DetailRoute(
     cityId: Int,
     viewModel: DetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
 ) {
-
     LaunchedEffect(Unit) {
         viewModel.init(cityId)
     }
     val uiState = viewModel.uiState
+    DetailScreen(uiState = uiState, onBackClick = onBackClick, onFavoriteClick = {
+        viewModel.onFavoriteClick(city = uiState.data?.city)
+    })
+}
+
+
+@Composable
+fun DetailScreen(
+    uiState: DetailUiState,
+    onBackClick: () -> Unit,
+    onFavoriteClick: (City?) -> Unit,
+) {
 
     val scrollState = rememberLazyListState()
     val firstVisibleIndex = remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
@@ -67,7 +79,7 @@ fun DetailScreen(
                     firstVisibleIndex = firstVisibleIndex.value,
                     onBackClick = onBackClick,
                     onFavoriteClick = {
-                        viewModel.onFavoriteClick(city = uiState.data.city)
+                        onFavoriteClick(uiState.data.city)
                     },
                 )
             },

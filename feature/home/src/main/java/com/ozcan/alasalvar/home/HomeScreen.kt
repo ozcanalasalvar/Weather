@@ -29,11 +29,12 @@ import com.ozcan.alasalvar.model.data.Weather
 import weather.feature.home.R
 
 @Composable
-fun HomeScreen(
+fun HomeRoute(
     onSearchClick: () -> Unit,
     onWeatherClick: (Weather) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+
     val context = LocalContext.current
     val permissions = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
@@ -65,6 +66,22 @@ fun HomeScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val locationUiState by viewModel.locationUiState.collectAsStateWithLifecycle()
+
+    HomeScreen(
+        onSearchClick = onSearchClick,
+        onWeatherClick = onWeatherClick,
+        uiState = uiState,
+        locationUiState = locationUiState
+    )
+}
+
+@Composable
+fun HomeScreen(
+    onSearchClick: () -> Unit,
+    onWeatherClick: (Weather) -> Unit,
+    uiState: HomeUiState,
+    locationUiState: CurrentLocationUiState,
+) {
 
 
     if (uiState.isLoading) {

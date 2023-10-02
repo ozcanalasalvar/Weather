@@ -23,12 +23,15 @@ internal fun Project.configureAndroidCompose(
         }
 
         dependencies {
-            "implementation"(libs.findLibrary("androidx-compose-ui-core").get())
-            "implementation"(libs.findLibrary("androidx-compose-material").get())
-            "implementation"(libs.findLibrary("androidx-compose-ui.tooling-preview").get())
-            "implementation"(libs.findLibrary("androidx-compose-lifecycle-viewmodel").get())
-            "implementation"(libs.findLibrary("androidx-lifecycle-runtimeCompose").get())
-            "implementation"(libs.findLibrary("androidx-activity-compose").get())
+            "implementation"(libs.findLibrary("androidx.compose.ui.core").get())
+            "implementation"(libs.findLibrary("androidx.compose.material").get())
+            "implementation"(libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+            "implementation"(libs.findLibrary("androidx.compose.lifecycle.viewmodel").get())
+            "implementation"(libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
+            "implementation"(libs.findLibrary("androidx.activity.compose").get())
+            "implementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
+            "debugImplementation"(libs.findLibrary("androidx.compose.ui.test.manifest").get())
+            "androidTestImplementation"(libs.findLibrary("androidx.compose.ui.test.junit4").get())
 
 
             "debugImplementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
@@ -44,6 +47,13 @@ internal fun Project.configureAndroidCompose(
             "implementation"(libs.findLibrary("androidx.constraintlayout.compose").get())
             "implementation"(libs.findLibrary("androidx.navigation.compose").get())
 
+        }
+
+        testOptions {
+            unitTests {
+                // For Robolectric
+                isIncludeAndroidResources = true
+            }
         }
 
     }

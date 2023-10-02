@@ -2,8 +2,7 @@ package com.ozcan.alasalvar.detail.navigation
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.ozcan.alasalvar.detail.DetailScreen
-import com.ozcan.alasalvar.model.data.City
+import com.ozcan.alasalvar.detail.DetailRoute
 
 const val detailNavigationRoute = "detail_route"
 internal const val cityIdArg = "cityId"
@@ -22,7 +21,7 @@ fun NavGraphBuilder.detailScreen(
         )
     ) { entry ->
         val cityId = entry.arguments?.getInt(cityIdArg) ?: 0
-        DetailScreen(
+        DetailRoute(
             cityId = cityId,
             onBackClick = onBackClick,
         )

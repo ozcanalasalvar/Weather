@@ -12,7 +12,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.ozcanalasalvar.testing.WeatherTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -21,7 +21,7 @@ android {
     buildTypes {
         debug {
             isDebuggable = true
-            applicationIdSuffix = ".debug"
+            //applicationIdSuffix = ".debug"
         }
         release {
             isDebuggable = false
@@ -50,6 +50,7 @@ dependencies {
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:model"))
+    implementation(project(":core:testing"))
 
     implementation(libs.accompanist.permissions)
 

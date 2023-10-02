@@ -1,6 +1,5 @@
 package com.ozcan.alasalvar.search
 
-import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,7 +7,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,7 +21,7 @@ import com.ozcan.alasalvar.search.component.SearchField
 import weather.feature.search.R
 
 @Composable
-fun SearchScreen(
+fun SearchRoute(
     onCancelClick: () -> Unit,
     onCityClicked: (City) -> Unit,
     viewModel: SearchViewModel = hiltViewModel()
@@ -28,18 +29,18 @@ fun SearchScreen(
 
     val uiState: SearchUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SearchContent(uiState, onCancelClick, onCityClicked) {
+    SearchScreen(uiState, onCancelClick, onCityClicked) {
         viewModel.onSearch(it)
     }
 }
 
 
 @Composable
-fun SearchContent(
-    uiState: SearchUiState,
-    onCancelClick: () -> Unit,
-    onCityClicked: (City) -> Unit,
-    onTextChanged: (String) -> Unit
+fun SearchScreen(
+    uiState: SearchUiState = SearchUiState(emptyList(), false),
+    onCancelClick: () -> Unit = {},
+    onCityClicked: (City) -> Unit = {},
+    onTextChanged: (String) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -51,25 +52,47 @@ fun SearchContent(
         SearchField(
             onTextChanged = onTextChanged,
             onCancelClick = onCancelClick,
-            hint = stringResource(id = R.string.search_city)
+            hint = stringResource(id = R.string.search_city),
+            modifier = Modifier
         )
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 15.dp)
-        ) {
-            itemsIndexed(uiState.results) { _, city ->
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(text = city.name + " ," + city.country,
-                    color = MaterialTheme.colors.secondary,
-                    fontSize = 15.sp,
-                    modifier = Modifier.bounceClick { onCityClicked(city) })
-                Spacer(modifier = Modifier.height(10.dp))
+
+        if (uiState.results.isNotEmpty()) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 15.dp)
+                    .testTag("searchField")
+            ) {
+                itemsIndexed(uiState.results) { _, city ->
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(text = city.name + " ," + city.country,
+                        color = MaterialTheme.colors.secondary,
+                        fontSize = 15.sp,
+                        modifier = Modifier
+                            .bounceClick { onCityClicked(city) }
+                            .testTag("${city.id}")
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                }
 
             }
-
         }
+
+        if (uiState.noResult) {
+            Text(
+                text = stringResource(id = R.string.no_result),
+                color = MaterialTheme.colors.secondary,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Light,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 5.dp, top = 20.dp)
+                    .testTag("NoResultText"),
+            )
+        }
+
     }
 }
 
@@ -77,7 +100,7 @@ fun SearchContent(
 @Preview
 @Composable
 fun SearchContentPreview() {
-    SearchContent(
+    SearchScreen(
         uiState = SearchUiState(),
         onCancelClick = {},
         onCityClicked = {},

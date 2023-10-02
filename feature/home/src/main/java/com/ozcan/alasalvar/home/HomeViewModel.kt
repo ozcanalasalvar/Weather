@@ -75,7 +75,7 @@ class HomeViewModel @Inject constructor(
         locationTracker.getCurrentLocation().distinctUntilChanged { old, new ->
             old?.latitude == new?.latitude && old?.longitude == new?.longitude
         }.collectLatest { location ->
-            when (val result = location?.let { getCurrentWeatherUseCase.invoke(it) }) {
+            when (val result = location?.let { getCurrentWeatherUseCase.invoke(it.latitude,it.longitude) }) {
                 is Result.Success -> {
                     _locationUiState.value = CurrentLocationUiState(current = result.data)
                 }

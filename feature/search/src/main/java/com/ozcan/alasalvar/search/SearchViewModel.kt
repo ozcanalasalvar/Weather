@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 data class SearchUiState(
     val results: List<City> = emptyList(),
-    val noResult: Boolean = true
+    val noResult: Boolean = false
 )
 
 @HiltViewModel
@@ -40,14 +40,19 @@ class SearchViewModel @Inject constructor(private val cityRepository: CityReposi
             .asResult().map {
                 when (it) {
                     is Result.Error -> {
-                        SearchUiState(results = emptyList())
+                        SearchUiState(results = emptyList(), noResult = false)
                     }
+
                     Result.Loading -> {
-                        SearchUiState(results = emptyList())
+                        SearchUiState(results = emptyList(), noResult = false)
                     }
+
                     is Result.Success -> {
                         it.data.filter { city -> city.name.contains(cityQuery) }.let { list ->
-                            SearchUiState(results = list)
+                            SearchUiState(
+                                results = list,
+                                noResult = cityQuery.isNotBlank() && list.isEmpty()
+                            )
                         }
                     }
                 }

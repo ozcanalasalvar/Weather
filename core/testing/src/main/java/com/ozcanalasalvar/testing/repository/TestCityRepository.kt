@@ -14,26 +14,40 @@ class TestCityRepository : CityRepository {
     private val cityFlow: MutableSharedFlow<List<City>> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
+    private var cityList = mutableListOf<City>()
+
     override fun getCities(): Flow<List<City>> {
+        cityFlow.tryEmit(cityList)
         return cityFlow
     }
 
     override suspend fun updateCity(city: City) {
-        cityFlow.map { cities -> cities.filter { it.id == city.id }.map { city } }
+        val _city = cityList.find { it.id == city.id }
+        if (_city != null) {
+            val index = cityList.indexOf(_city)
+            cityList[index] = city
+        } else {
+            cityList.add(city)
+        }
+        cityFlow.tryEmit(cityList)
     }
 
     override suspend fun getCity(cityId: Int): City {
-        return cityFlow.map { cities -> cities.find { it.id == cityId }!! }.first()
+        return cityList.find { it.id == cityId }!!
     }
 
     override fun getFavoriteCities(): Flow<List<City>> {
-        return cityFlow.map { cities -> cities.filter { it.isFavorite } }
+        val favorites = cityList.filter { city -> city.isFavorite }
+        cityFlow.tryEmit(favorites)
+        return cityFlow
     }
 
     /**
      * Test only method to add the cities to the stored list in memory
      */
     fun sendCities(cities: List<City>) {
+        cityList = mutableListOf()
+        cityList.addAll(cities)
         cityFlow.tryEmit(cities)
     }
 }

@@ -19,7 +19,7 @@ dependencies {
     api(libs.junit4)
     api(libs.kotlinx.coroutines.test)
     api(libs.mockito.android)
-    api(libs.robolectric)
+   // api(libs.robolectric)
 
     debugApi(libs.androidx.compose.ui.test.manifest)
 

@@ -17,7 +17,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             }
             extensions.configure<LibraryExtension> {
                 defaultConfig {
-                    testInstrumentationRunner = "com.ozcanalasalvar.core.testing.WeatherTestRunner"
+                    testInstrumentationRunner = "com.ozcanalasalvar.testing.WeatherTestRunner"
                 }
             }
 
