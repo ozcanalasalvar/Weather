@@ -29,6 +29,7 @@ import com.ozcan.alasalvar.home.component.WeatherListItem
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import weather.feature.home.R
 
 @Composable
@@ -70,14 +71,29 @@ fun HomeRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val locationUiState by viewModel.locationUiState.collectAsStateWithLifecycle()
 
+
+    val errorState = remember { mutableStateOf(false) }
+    val errorMessage = remember { mutableStateOf("") }
+
+
+    LaunchedEffect(Unit) {
+        viewModel.errorFlow.collectLatest {
+            errorState.value = !it.isNullOrEmpty()
+            errorMessage.value = it.toString()
+        }
+    }
+
+    if (errorState.value)
+        WarningDialog(content = errorMessage.value, state = errorState, onCloseClick = {
+            errorState.value = false
+        })
+
+
     HomeScreen(
         onSearchClick = onSearchClick,
         onWeatherClick = onWeatherClick,
         uiState = uiState,
         locationUiState = locationUiState,
-        onRefreshDataClick = {
-            viewModel.startLocationTrack()
-        }
     )
 }
 
@@ -85,7 +101,6 @@ fun HomeRoute(
 fun HomeScreen(
     onSearchClick: () -> Unit = {},
     onWeatherClick: (Weather) -> Unit = {},
-    onRefreshDataClick: () -> Unit = {},
     uiState: HomeUiState = HomeUiState(),
     locationUiState: CurrentLocationUiState = CurrentLocationUiState(),
 ) {
@@ -94,22 +109,6 @@ fun HomeScreen(
     if (uiState.isLoading) {
         Loading(modifier = Modifier.testTag("loading"))
     }
-
-    val errorState = remember {
-        mutableStateOf(false)
-    }
-
-
-    LaunchedEffect(uiState.error) {
-        coroutineScope {
-            errorState.value = uiState.error != null
-        }
-    }
-
-    if (errorState.value)
-        WarningDialog(content = uiState.error!!, state = errorState, onCloseClick = {
-            errorState.value = false
-        })
 
     HomeContent(
         uiState = uiState,

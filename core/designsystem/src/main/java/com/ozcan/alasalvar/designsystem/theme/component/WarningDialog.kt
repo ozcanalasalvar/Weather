@@ -91,6 +91,7 @@ fun WarningDialog(
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colors.secondary,
                             modifier = Modifier.clickable {
+                                state.value = false
                                 onCloseClick()
                             })
 
