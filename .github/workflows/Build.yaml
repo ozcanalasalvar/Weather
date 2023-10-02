@@ -20,7 +20,7 @@ jobs:
 
       - name: Load API Token from secrets
         env:
-          API_TOKEN: ${{ secrets.API_OTKEN }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
         run: echo API_TOKEN=\"$API_TOKEN\" > ./local.properties
 
       - uses: actions/cache@v2
