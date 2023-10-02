@@ -9,6 +9,7 @@ import com.ozcan.alasalvar.domain.GetCurrentWeatherUseCase
 import com.ozcan.alasalvar.domain.GetWeatherListUseCase
 import com.ozcan.alasalvar.model.data.Weather
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,6 +42,10 @@ class HomeViewModel @Inject constructor(
 
     var locationUiState: StateFlow<CurrentLocationUiState> = _locationUiState
 
+    private var errorChannel = Channel<String?>(Channel.BUFFERED)
+
+    var errorFlow = errorChannel.receiveAsFlow()
+
     private fun weatherUiState(): Flow<HomeUiState> {
 
         return cityRepository.getFavoriteCities().distinctUntilChanged { old, new ->
@@ -50,8 +55,11 @@ class HomeViewModel @Inject constructor(
             when (val result = getWeatherListUseCase.invoke(it)) {
                 is Result.Error -> {
 
+                    errorChannel.send(result.exception?.message.toString())
                     HomeUiState(
-                        isLoading = false, favorites = null, error = result.exception?.message.toString()
+                        isLoading = false,
+                        favorites = null,
+                        error = result.exception?.message.toString()
                     )
 
                 }
@@ -75,9 +83,14 @@ class HomeViewModel @Inject constructor(
         locationTracker.getCurrentLocation().distinctUntilChanged { old, new ->
             old?.latitude == new?.latitude && old?.longitude == new?.longitude
         }.collectLatest { location ->
-            when (val result = location?.let { getCurrentWeatherUseCase.invoke(it.latitude,it.longitude) }) {
+            when (val result =
+                location?.let { getCurrentWeatherUseCase.invoke(it.latitude, it.longitude) }) {
                 is Result.Success -> {
                     _locationUiState.value = CurrentLocationUiState(current = result.data)
+                }
+
+                is Result.Error -> {
+                    errorChannel.send(result.exception?.message.toString())
                 }
 
                 else -> {
