@@ -36,6 +36,7 @@ import com.ozcan.alasalvar.detail.component.DailyWeatherItem
 import com.ozcan.alasalvar.detail.component.HourlyWeatherItem
 import com.ozcan.alasalvar.detail.component.Info
 import com.ozcan.alasalvar.designsystem.theme.component.Loading
+import com.ozcan.alasalvar.designsystem.theme.component.WarningDialog
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
@@ -69,6 +70,17 @@ fun DetailScreen(
 
     if (uiState.isLoading) {
         Loading(modifier = Modifier.testTag("loading"))
+    }
+
+    val errorState = remember {
+        mutableStateOf( false)
+    }
+
+    if (uiState.error !=null) {
+        errorState.value = true
+        WarningDialog(content = uiState.error, state = errorState, onCloseClick = {
+            onBackClick()
+        })
     }
 
     if (uiState.data != null) {

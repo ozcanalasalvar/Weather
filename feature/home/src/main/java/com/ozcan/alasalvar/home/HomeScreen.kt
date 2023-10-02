@@ -23,10 +23,13 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.Loading
+import com.ozcan.alasalvar.designsystem.theme.component.WarningDialog
 import com.ozcan.alasalvar.home.component.HomeToolbar
 import com.ozcan.alasalvar.home.component.WeatherListItem
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import weather.feature.home.R
 
 @Composable
@@ -68,11 +71,29 @@ fun HomeRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val locationUiState by viewModel.locationUiState.collectAsStateWithLifecycle()
 
+
+    val errorState = remember { mutableStateOf(false) }
+    val errorMessage = remember { mutableStateOf("") }
+
+
+    LaunchedEffect(Unit) {
+        viewModel.errorFlow.collectLatest {
+            errorState.value = !it.isNullOrEmpty()
+            errorMessage.value = it.toString()
+        }
+    }
+
+    if (errorState.value)
+        WarningDialog(content = errorMessage.value, state = errorState, onCloseClick = {
+            errorState.value = false
+        })
+
+
     HomeScreen(
         onSearchClick = onSearchClick,
         onWeatherClick = onWeatherClick,
         uiState = uiState,
-        locationUiState = locationUiState
+        locationUiState = locationUiState,
     )
 }
 
