@@ -12,7 +12,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.ozcanalasalvar.testing.WeatherTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -41,6 +41,12 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -50,6 +56,7 @@ dependencies {
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:model"))
+    implementation(project(":core:testing"))
 
     implementation(libs.accompanist.permissions)
 

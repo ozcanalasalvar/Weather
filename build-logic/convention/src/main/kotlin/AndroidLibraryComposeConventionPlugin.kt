@@ -14,18 +14,6 @@ class AndroidLibraryComposeConventionPlugin  : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureAndroidCompose(this)
             }
-
-//            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-//            configurations.configureEach {
-//                resolutionStrategy {
-//                    force(libs.findDependency("junit4").get())
-//                    // Temporary workaround for https://issuetracker.google.com/174733673
-//                }
-//            }
-//            dependencies {
-//                add("androidTestImplementation", kotlin("test"))
-//                add("testImplementation", kotlin("test"))
-//            }
         }
     }
 }

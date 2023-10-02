@@ -4,7 +4,7 @@ package com.ozcan.alasalvar.search.navigation
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.ozcan.alasalvar.model.data.City
-import com.ozcan.alasalvar.search.SearchScreen
+import com.ozcan.alasalvar.search.SearchRoute
 
 
 const val searchNavigationRoute = "search_route"
@@ -20,7 +20,7 @@ fun NavGraphBuilder.searchScreen(
     composable(
         route = searchNavigationRoute,
     ) {
-        SearchScreen(
+        SearchRoute(
             onCancelClick = onCancelClick,
             onCityClicked = onCityClicked
         )

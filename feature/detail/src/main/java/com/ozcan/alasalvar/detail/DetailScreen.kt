@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,23 +40,35 @@ import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.WeatherDetail
 import weather.feature.detail.R
 
+
 @Composable
-fun DetailScreen(
+fun DetailRoute(
     cityId: Int,
     viewModel: DetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
 ) {
-
     LaunchedEffect(Unit) {
         viewModel.init(cityId)
     }
     val uiState = viewModel.uiState
+    DetailScreen(uiState = uiState, onBackClick = onBackClick, onFavoriteClick = {
+        viewModel.onFavoriteClick(city = uiState.data?.city)
+    })
+}
+
+
+@Composable
+fun DetailScreen(
+    uiState: DetailUiState = DetailUiState(),
+    onBackClick: () -> Unit = {},
+    onFavoriteClick: (City?) -> Unit = {},
+) {
 
     val scrollState = rememberLazyListState()
     val firstVisibleIndex = remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
 
     if (uiState.isLoading) {
-        Loading()
+        Loading(modifier = Modifier.testTag("loading"))
     }
 
     if (uiState.data != null) {
@@ -67,7 +80,7 @@ fun DetailScreen(
                     firstVisibleIndex = firstVisibleIndex.value,
                     onBackClick = onBackClick,
                     onFavoriteClick = {
-                        viewModel.onFavoriteClick(city = uiState.data.city)
+                        onFavoriteClick(uiState.data.city)
                     },
                 )
             },
@@ -115,10 +128,10 @@ fun HeaderContent(
 
 
     val progress by animateFloatAsState(
-        targetValue = if (firstVisibleIndex == 0) 0f else 1f, tween(500)
+        targetValue = if (firstVisibleIndex == 0) 0f else 1f, tween(500), label = ""
     )
     val motionHeight by animateDpAsState(
-        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp, tween(500)
+        targetValue = if (firstVisibleIndex == 0) 590.dp else 280.dp, tween(500), label = ""
     )
 
 

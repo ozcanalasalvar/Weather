@@ -7,8 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozcan.alasalvar.common.result.Result
-import com.ozcan.alasalvar.data.CityRepository
-import com.ozcan.alasalvar.detail.navigation.detailNavigationRoute
+import com.ozcan.alasalvar.data.repository.CityRepository
 import com.ozcan.alasalvar.domain.GetWeatherDetailUseCase
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.WeatherDetail
@@ -27,7 +26,6 @@ data class DetailUiState(
 class DetailViewModel @Inject constructor(
     private val detailUseCase: GetWeatherDetailUseCase,
     private val cityRepository: CityRepository,
-    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
 
@@ -45,7 +43,7 @@ class DetailViewModel @Inject constructor(
                 is Result.Error -> {
                     uiState.copy(
                         data = null,
-                        error = result.exception.toString(),
+                        error = result.exception?.message.toString(),
                         isLoading = false
                     )
                 }
@@ -71,7 +69,7 @@ class DetailViewModel @Inject constructor(
     fun onFavoriteClick(city: City?) = viewModelScope.launch {
         city?.let {
             val _city = city.copy(isFavorite = !it.isFavorite)
-            cityRepository.updateStation(_city)
+            cityRepository.updateCity(_city)
             getDetail(cityId = city.id)
         }
     }

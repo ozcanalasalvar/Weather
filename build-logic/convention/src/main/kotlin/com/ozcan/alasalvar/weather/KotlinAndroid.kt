@@ -35,7 +35,7 @@ internal fun Project.configureKotlinAndroid(
 
     }
     dependencies {
-        "implementation"(libs.findDependency("androidx-core-ktx").get())
+        "implementation"(libs.findLibrary("androidx-core-ktx").get())
     }
 
 }

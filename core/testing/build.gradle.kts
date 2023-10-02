@@ -1,44 +1,35 @@
+
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("weather.android.library")
+    id("weather.android.hilt")
 }
 
 android {
-    namespace = "com.ozcanalasalvar.testing"
-    compileSdk = 33
-
-    defaultConfig {
-        minSdk = 24
-        targetSdk = 33
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    namespace = "weather.core.testing"
 }
 
 dependencies {
+    api(libs.androidx.activity.compose)
+    api(libs.androidx.compose.ui.test.junit4)
+    api(libs.androidx.test.core)
+    api(libs.androidx.test.espresso.core)
+    api(libs.androidx.test.rules)
+    api(libs.androidx.test.runner)
+    api(libs.hilt.android.testing)
+    api(libs.junit4)
+    api(libs.kotlinx.coroutines.test)
+    api(libs.mockito.android)
+   // api(libs.robolectric)
 
-    implementation("androidx.core:core-ktx:1.8.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    debugApi(libs.androidx.compose.ui.test.manifest)
+
+
+    implementation(project(":core:common"))
+    implementation(project(":core:data"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
+    implementation(project(":core:database"))
+    implementation(project(":core:network"))
+
 }

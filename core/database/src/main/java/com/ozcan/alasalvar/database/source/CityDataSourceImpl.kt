@@ -13,17 +13,15 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import javax.inject.Inject
 
-@OptIn(ExperimentalSerializationApi::class)
 class CityDataSourceImpl @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
-    cityDatabase: CityDatabase,
+    private val cityDatabase: CityDatabase,
     private val assets: AssetManager,
-    private val networkJson: Json,
+    private val networkJson: Json
 ) : CityDataSource {
 
     private val dao = cityDatabase.cityDao()
@@ -43,7 +41,6 @@ class CityDataSourceImpl @Inject constructor(
     }
 
 
-    @OptIn(ExperimentalSerializationApi::class)
     override fun getCities(): Flow<List<City>> {
         return dao.getCities().map { city -> city.map { it.asExternalModel() } }
     }
@@ -61,7 +58,7 @@ class CityDataSourceImpl @Inject constructor(
     }
 
 
-    override suspend fun updateStation(city: City) {
+    override suspend fun updateCity(city: City) {
         dao.updateStation(city.asEntity())
     }
 

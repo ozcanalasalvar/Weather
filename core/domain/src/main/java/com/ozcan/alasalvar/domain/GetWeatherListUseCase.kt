@@ -3,14 +3,10 @@ package com.ozcan.alasalvar.domain
 import com.ozcan.alasalvar.common.dispatcher.AppDispatchers
 import com.ozcan.alasalvar.common.dispatcher.Dispatcher
 import com.ozcan.alasalvar.common.result.Result
-import com.ozcan.alasalvar.data.WeatherRepository
+import com.ozcan.alasalvar.data.repository.WeatherRepository
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
-import com.ozcan.alasalvar.network.model.asExternalModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetWeatherListUseCase @Inject constructor(
@@ -22,25 +18,29 @@ class GetWeatherListUseCase @Inject constructor(
         val deferredList = mutableListOf<Deferred<Weather>>()
         val list = mutableListOf<Weather>()
 
-        withContext(ioDispatcher) {
+
+        val result = withContext(ioDispatcher) {
             cities.forEach {
                 val weatherDto = async {
-                    weatherRepository.getWeatherData(cityName = it.name).asExternalModel(it)
+                    weatherRepository.getWeatherData(cityName = it.name)
                 }
                 deferredList.add(weatherDto)
             }
+            try {
+                deferredList.mapNotNull { deferredResult ->
 
-            deferredList.mapNotNull { deferredResult ->
-                try {
                     deferredResult.await()
-                } catch (exception: Exception) {
-                    null
+
+                }.forEach {
+                    list.add(it)
                 }
-            }.forEach {
-                list.add(it)
+
+                return@withContext Result.Success(list)
+            } catch (exception: Exception) {
+                return@withContext Result.Error(exception)
             }
         }
 
-        return Result.Success(list)
+        return result
     }
 }

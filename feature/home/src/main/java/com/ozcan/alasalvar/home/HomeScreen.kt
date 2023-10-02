@@ -13,6 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,23 +21,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.Loading
-import com.ozcan.alasalvar.designsystem.theme.ui.*
 import com.ozcan.alasalvar.home.component.HomeToolbar
 import com.ozcan.alasalvar.home.component.WeatherListItem
 import com.ozcan.alasalvar.model.data.City
 import com.ozcan.alasalvar.model.data.Weather
 import weather.feature.home.R
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun HomeScreen(
+fun HomeRoute(
     onSearchClick: () -> Unit,
     onWeatherClick: (Weather) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+
     val context = LocalContext.current
     val permissions = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
@@ -69,9 +68,25 @@ fun HomeScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val locationUiState by viewModel.locationUiState.collectAsStateWithLifecycle()
 
+    HomeScreen(
+        onSearchClick = onSearchClick,
+        onWeatherClick = onWeatherClick,
+        uiState = uiState,
+        locationUiState = locationUiState
+    )
+}
+
+@Composable
+fun HomeScreen(
+    onSearchClick: () -> Unit = {},
+    onWeatherClick: (Weather) -> Unit = {},
+    uiState: HomeUiState = HomeUiState(),
+    locationUiState: CurrentLocationUiState = CurrentLocationUiState(),
+) {
+
 
     if (uiState.isLoading) {
-        Loading()
+        Loading(modifier = Modifier.testTag("loading"))
     }
 
     HomeContent(
@@ -126,10 +141,11 @@ fun HomeContent(
                         fontSize = 18.sp,
                         color = MaterialTheme.colors.onBackground,
                         fontWeight = FontWeight.Medium,
+                        maxLines = 1,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 20.dp),
-                        maxLines = 1,
+                            .padding(top = 20.dp)
+                            .testTag("favoriteTitle"),
                     )
                 }
 
@@ -175,7 +191,7 @@ fun HomeContentPreview() {
                     isFavorite = true,
                     isCurrentLocation = false,
                 ),
-                weatherIcon = null,
+                weatherIcon = "https://openweathermap.org/img/wn/03n@2x.png",
                 weatherStatus = "cloudy",
                 currentTemperature = "28C",
                 todayDate = "12/12/222",

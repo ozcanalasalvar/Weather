@@ -13,7 +13,7 @@ interface CityDataSource {
 
     suspend fun getCurrentLocation(): City
 
-    suspend fun updateStation(city: City)
+    suspend fun updateCity(city: City)
 
     suspend fun getCity(cityId: Int): City
 }

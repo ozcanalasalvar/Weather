@@ -5,6 +5,10 @@ plugins {
 
 android {
     namespace = "weather.core.domain"
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {

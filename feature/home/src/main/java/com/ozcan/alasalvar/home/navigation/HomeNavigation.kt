@@ -2,7 +2,7 @@ package com.ozcan.alasalvar.home.navigation
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.ozcan.alasalvar.home.HomeScreen
+import com.ozcan.alasalvar.home.HomeRoute
 import com.ozcan.alasalvar.model.data.Weather
 
 
@@ -19,7 +19,7 @@ fun NavGraphBuilder.homeScreen(
     composable(
         route = homeNavigationRoute,
     ) {
-        HomeScreen(
+        HomeRoute(
             onSearchClick = onSearchClick,
             onWeatherClick = onWeatherClick
         )

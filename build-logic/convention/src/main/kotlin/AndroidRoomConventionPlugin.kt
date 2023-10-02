@@ -14,9 +14,9 @@ class AndroidRoomConventionPlugin: Plugin<Project> {
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
-                "implementation"(libs.findDependency("room-ktx").get())
-                "implementation"(libs.findDependency("room-runtime").get())
-                "kapt"(libs.findDependency("room-compiler").get())
+                "implementation"(libs.findLibrary("room-ktx").get())
+                "implementation"(libs.findLibrary("room-runtime").get())
+                "kapt"(libs.findLibrary("room-compiler").get())
             }
         }
     }

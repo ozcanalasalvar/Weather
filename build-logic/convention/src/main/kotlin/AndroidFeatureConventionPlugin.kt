@@ -17,7 +17,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             }
             extensions.configure<LibraryExtension> {
                 defaultConfig {
-                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                    testInstrumentationRunner = "com.ozcanalasalvar.testing.WeatherTestRunner"
                 }
             }
 
@@ -35,13 +35,13 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", kotlin("test"))
                 add("androidTestImplementation", project(":core:testing"))
 
-                "implementation"(libs.findDependency("hilt-android").get())
+                "implementation"(libs.findLibrary("hilt-android").get())
 
-                "implementation"(libs.findDependency("hilt-navigation-compose").get())
-                "implementation"(libs.findDependency("androidx.lifecycle.runtimeCompose").get())
-                "implementation"(libs.findDependency("androidx.compose.lifecycle.viewmodel").get())
+                "implementation"(libs.findLibrary("hilt-navigation-compose").get())
+                "implementation"(libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
+                "implementation"(libs.findLibrary("androidx.compose.lifecycle.viewmodel").get())
 
-                "implementation"(libs.findDependency("kotlinx.coroutines.android").get())
+                "implementation"(libs.findLibrary("kotlinx.coroutines.android").get())
             }
         }
     }
