@@ -48,7 +48,7 @@ class SearchViewModel @Inject constructor(private val cityRepository: CityReposi
                     }
 
                     is Result.Success -> {
-                        it.data.filter { city -> city.name.contains(cityQuery) }.let { list ->
+                        it.data.filter { city -> city.name.contains(cityQuery,ignoreCase = true) }.let { list ->
                             SearchUiState(
                                 results = list,
                                 noResult = cityQuery.isNotBlank() && list.isEmpty()
