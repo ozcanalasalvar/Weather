@@ -14,13 +14,13 @@ class TestWeatherRepository : WeatherRepository {
     private val weatherFlow: MutableSharedFlow<List<Weather>> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-    private var weatherList= mutableListOf<Weather >()
+    private var weatherList = mutableListOf<Weather>()
     private var weatherDetailList = mutableListOf<WeatherDetail>()
 
     private var isExceptionEnabled = false
 
     override suspend fun getWeatherData(cityName: String?, lat: Double?, lon: Double?): Weather {
-        if (isExceptionEnabled){
+        if (isExceptionEnabled) {
             throw Exception("Test Exception")
         }
         return if (!cityName.isNullOrBlank()) {
@@ -38,9 +38,10 @@ class TestWeatherRepository : WeatherRepository {
     }
 
     override suspend fun getWeatherDetail(lat: Double, lon: Double): WeatherDetail {
-        if (isExceptionEnabled){
+        if (isExceptionEnabled) {
             throw Exception("Test Exception")
         }
+
         return weatherDetailList.find { it.city?.lat == lat && it.city?.lon == lon }!!
     }
 
@@ -60,7 +61,7 @@ class TestWeatherRepository : WeatherRepository {
         weatherDetailFlow.tryEmit(weatherDetails)
     }
 
-    fun sendThrowException(isExceptionEnabled:Boolean){
+    fun sendThrowException(isExceptionEnabled: Boolean) {
         this.isExceptionEnabled = isExceptionEnabled
     }
 }

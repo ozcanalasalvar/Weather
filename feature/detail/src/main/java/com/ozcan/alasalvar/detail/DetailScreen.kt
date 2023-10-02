@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -58,16 +59,16 @@ fun DetailRoute(
 
 @Composable
 fun DetailScreen(
-    uiState: DetailUiState,
-    onBackClick: () -> Unit,
-    onFavoriteClick: (City?) -> Unit,
+    uiState: DetailUiState = DetailUiState(),
+    onBackClick: () -> Unit = {},
+    onFavoriteClick: (City?) -> Unit = {},
 ) {
 
     val scrollState = rememberLazyListState()
     val firstVisibleIndex = remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
 
     if (uiState.isLoading) {
-        Loading()
+        Loading(modifier = Modifier.testTag("loading"))
     }
 
     if (uiState.data != null) {

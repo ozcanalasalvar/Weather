@@ -26,7 +26,6 @@ data class DetailUiState(
 class DetailViewModel @Inject constructor(
     private val detailUseCase: GetWeatherDetailUseCase,
     private val cityRepository: CityRepository,
-    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
 
@@ -44,7 +43,7 @@ class DetailViewModel @Inject constructor(
                 is Result.Error -> {
                     uiState.copy(
                         data = null,
-                        error = result.exception.toString(),
+                        error = result.exception?.message.toString(),
                         isLoading = false
                     )
                 }
