@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.kotlin
 
+@Suppress("UnstableApiUsage")
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
@@ -30,19 +31,17 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:domain"))
 
                 add("testImplementation", kotlin("test"))
-//                add("testImplementation", project(":core:testing"))
-//                add("androidTestImplementation", kotlin("test"))
-//                add("androidTestImplementation", project(":core:testing"))
-//
-//                TODO "implementation"(libs.findDependency("hilt-android").get())
-//                add("implementation", libs.findLibrary("coil.kt").get())
-//                add("implementation", libs.findLibrary("coil.kt.compose").get())
-//
-//                add("implementation", libs.findLibrary("androidx.hilt.navigation.compose").get())
-//                add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
-//                add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
-//
-//                add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
+                add("testImplementation", project(":core:testing"))
+                add("androidTestImplementation", kotlin("test"))
+                add("androidTestImplementation", project(":core:testing"))
+
+                "implementation"(libs.findDependency("hilt-android").get())
+
+                "implementation"(libs.findDependency("hilt-navigation-compose").get())
+                "implementation"(libs.findDependency("androidx.lifecycle.runtimeCompose").get())
+                "implementation"(libs.findDependency("androidx.compose.lifecycle.viewmodel").get())
+
+                "implementation"(libs.findDependency("kotlinx.coroutines.android").get())
             }
         }
     }
