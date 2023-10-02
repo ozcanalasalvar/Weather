@@ -17,7 +17,12 @@ class TestWeatherRepository : WeatherRepository {
     private var weatherList= mutableListOf<Weather >()
     private var weatherDetailList = mutableListOf<WeatherDetail>()
 
+    private var isExceptionEnabled = false
+
     override suspend fun getWeatherData(cityName: String?, lat: Double?, lon: Double?): Weather {
+        if (isExceptionEnabled){
+            throw Exception("Test Exception")
+        }
         return if (!cityName.isNullOrBlank()) {
             weatherList.find {
                 it.city.name == cityName
@@ -33,6 +38,9 @@ class TestWeatherRepository : WeatherRepository {
     }
 
     override suspend fun getWeatherDetail(lat: Double, lon: Double): WeatherDetail {
+        if (isExceptionEnabled){
+            throw Exception("Test Exception")
+        }
         return weatherDetailList.find { it.city?.lat == lat && it.city?.lon == lon }!!
     }
 
@@ -50,5 +58,9 @@ class TestWeatherRepository : WeatherRepository {
         weatherDetailList = mutableListOf()
         weatherDetailList.addAll(weatherDetails)
         weatherDetailFlow.tryEmit(weatherDetails)
+    }
+
+    fun sendThrowException(isExceptionEnabled:Boolean){
+        this.isExceptionEnabled = isExceptionEnabled
     }
 }

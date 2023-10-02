@@ -18,25 +18,29 @@ class GetWeatherListUseCase @Inject constructor(
         val deferredList = mutableListOf<Deferred<Weather>>()
         val list = mutableListOf<Weather>()
 
-        withContext(ioDispatcher) {
+
+        val result = withContext(ioDispatcher) {
             cities.forEach {
                 val weatherDto = async {
                     weatherRepository.getWeatherData(cityName = it.name)
                 }
                 deferredList.add(weatherDto)
             }
+            try {
+                deferredList.mapNotNull { deferredResult ->
 
-            deferredList.mapNotNull { deferredResult ->
-                try {
                     deferredResult.await()
-                } catch (exception: Exception) {
-                    null
+
+                }.forEach {
+                    list.add(it)
                 }
-            }.forEach {
-                list.add(it)
+
+                return@withContext Result.Success(list)
+            } catch (exception: Exception) {
+                return@withContext Result.Error(exception)
             }
         }
 
-        return Result.Success(list)
+        return result
     }
 }

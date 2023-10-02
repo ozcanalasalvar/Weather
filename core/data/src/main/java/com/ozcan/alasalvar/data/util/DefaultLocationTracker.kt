@@ -46,7 +46,7 @@ class DefaultLocationTracker @Inject constructor(
             override fun onLocationResult(result: LocationResult) {
                 result ?: return
                 try {
-                    trySend(result.lastLocation).isSuccess
+                    trySend(Location(result.lastLocation!!.latitude,result.lastLocation!!.longitude)).isSuccess
                 } catch (e: Exception) {
                 }
             }

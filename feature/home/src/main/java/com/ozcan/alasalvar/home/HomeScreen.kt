@@ -13,6 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -77,15 +78,15 @@ fun HomeRoute(
 
 @Composable
 fun HomeScreen(
-    onSearchClick: () -> Unit,
-    onWeatherClick: (Weather) -> Unit,
-    uiState: HomeUiState,
-    locationUiState: CurrentLocationUiState,
+    onSearchClick: () -> Unit = {},
+    onWeatherClick: (Weather) -> Unit = {},
+    uiState: HomeUiState = HomeUiState(),
+    locationUiState: CurrentLocationUiState = CurrentLocationUiState(),
 ) {
 
 
     if (uiState.isLoading) {
-        Loading()
+        Loading(modifier = Modifier.testTag("loading"))
     }
 
     HomeContent(
@@ -140,10 +141,11 @@ fun HomeContent(
                         fontSize = 18.sp,
                         color = MaterialTheme.colors.onBackground,
                         fontWeight = FontWeight.Medium,
+                        maxLines = 1,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 20.dp),
-                        maxLines = 1,
+                            .padding(top = 20.dp)
+                            .testTag("favoriteTitle"),
                     )
                 }
 

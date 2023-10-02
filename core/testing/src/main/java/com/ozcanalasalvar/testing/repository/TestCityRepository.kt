@@ -15,13 +15,20 @@ class TestCityRepository : CityRepository {
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
     private var cityList = mutableListOf<City>()
+    private var isExceptionEnabled = false
 
     override fun getCities(): Flow<List<City>> {
+        if (isExceptionEnabled) {
+            throw Exception("Test Exception")
+        }
         cityFlow.tryEmit(cityList)
         return cityFlow
     }
 
     override suspend fun updateCity(city: City) {
+        if (isExceptionEnabled) {
+            throw Exception("Test Exception")
+        }
         val _city = cityList.find { it.id == city.id }
         if (_city != null) {
             val index = cityList.indexOf(_city)
@@ -33,10 +40,16 @@ class TestCityRepository : CityRepository {
     }
 
     override suspend fun getCity(cityId: Int): City {
+        if (isExceptionEnabled) {
+            throw Exception("Test Exception")
+        }
         return cityList.find { it.id == cityId }!!
     }
 
     override fun getFavoriteCities(): Flow<List<City>> {
+        if (isExceptionEnabled) {
+            throw Exception("Test Exception")
+        }
         val favorites = cityList.filter { city -> city.isFavorite }
         cityFlow.tryEmit(favorites)
         return cityFlow
@@ -49,5 +62,9 @@ class TestCityRepository : CityRepository {
         cityList = mutableListOf()
         cityList.addAll(cities)
         cityFlow.tryEmit(cities)
+    }
+
+    fun sendThrowException(isExceptionEnabled: Boolean) {
+        this.isExceptionEnabled = isExceptionEnabled
     }
 }
