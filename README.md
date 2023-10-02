@@ -7,7 +7,7 @@ Weather is a simple project to study and play with some android components, arch
 <p align="center">
   <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/search_dark.png" width="250">
   <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/detail_dark.png" width="250">
-  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/art/detail_night.gif" width="250">
+  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/detail_night.gif" width="250">
 </p>
 <br><br>
 
