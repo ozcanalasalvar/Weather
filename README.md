@@ -5,9 +5,9 @@ Weather is a simple project to study and play with some android components, arch
 <br><br>
 
 <p align="center">
-  <img src="https://github.com/OzcanAlasalvar/Weather/blob/develop/art/search_dark.png" width="250">
-  <img src="https://github.com/OzcanAlasalvar/Weather/blob/develop/art/detail_dark.png" width="250">
-  <img src="https://github.com/OzcanAlasalvar/Weather/blob/develop/art/detail_night.gif" width="250">
+  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/search_dark.png" width="250">
+  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/detail_dark.png" width="250">
+  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/art/detail_night.gif" width="250">
 </p>
 <br><br>
 
@@ -17,9 +17,9 @@ This project uses [app modularization architecture](https://developer.android.co
 <br><br>
 
 <p align="center">
-  <img src="https://github.com/OzcanAlasalvar/Weather/blob/develop/art/serarch_light.png" width="250">
-  <img src="https://github.com/OzcanAlasalvar/Weather/blob/develop/art/home_light.png" width="250">
-  <img src="https://github.com/OzcanAlasalvar/Weather/blob/develop/art/detail_light.gif" width="250">
+  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/serarch_light.png" width="250">
+  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/home_light.png" width="250">
+  <img src="https://github.com/OzcanAlasalvar/Weather/blob/main/art/detail_light.gif" width="250">
 </p>
 
 
