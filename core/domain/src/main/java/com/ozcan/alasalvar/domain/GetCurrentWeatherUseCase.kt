@@ -1,6 +1,5 @@
 package com.ozcan.alasalvar.domain
 
-import android.location.Location
 import com.ozcan.alasalvar.common.result.Result
 import com.ozcan.alasalvar.data.repository.CityRepository
 import com.ozcan.alasalvar.data.repository.WeatherRepository

@@ -51,7 +51,7 @@ class HomeViewModel @Inject constructor(
                 is Result.Error -> {
 
                     HomeUiState(
-                        isLoading = true, favorites = null, error = result.exception?.message.toString()
+                        isLoading = false, favorites = null, error = result.exception?.message.toString()
                     )
 
                 }
