@@ -3,7 +3,7 @@
 
 ![build](https://github.com/OzcanAlasalvar/Weather/actions/workflows/Build.yaml/badge.svg)
 
-Weather is a full functional project to work around android components, architecture and tools for Android development.
+Weather is a fully functional app working around android components, architecture and tools for Android development. The app tracks the user's location and returns the relevant weather of the location. Also user can create favorite list and display them on home screen.
 <br><br>
 
 <p align="center">
