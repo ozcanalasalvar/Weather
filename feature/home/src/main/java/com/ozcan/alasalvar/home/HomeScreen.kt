@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ozcan.alasalvar.designsystem.theme.component.Loading
 import com.ozcan.alasalvar.designsystem.theme.component.WarningDialog
@@ -32,6 +33,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import weather.feature.home.R
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun HomeRoute(
     onSearchClick: () -> Unit,
