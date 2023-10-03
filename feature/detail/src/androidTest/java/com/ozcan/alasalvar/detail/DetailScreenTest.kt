@@ -28,7 +28,7 @@ class DetailScreenTest {
     }
 
     @Test
-    fun detailScreen_initial_state_loading_visible() = runTest {
+    fun detailScreen_initial_state_loading_visible()  {
         composeTestRule.setContent {
             DetailScreen()
         }
@@ -38,7 +38,7 @@ class DetailScreenTest {
 
 
     @Test
-    fun detailScreen_data_fetched_successfully() = runTest {
+    fun detailScreen_data_fetched_successfully()  {
         composeTestRule.setContent {
             DetailScreen(
                 uiState = DetailUiState(
